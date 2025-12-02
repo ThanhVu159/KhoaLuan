@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./XrayDiagnosis.css";
@@ -8,51 +7,46 @@ const XrayDiagnosis = () => {
   const [preview, setPreview] = useState(null);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [patientId, setPatientId] = useState(null);
   const [appointmentId, setAppointmentId] = useState(null);
   const [showAnnotations, setShowAnnotations] = useState(true);
 
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const fetchPatient = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/user/patient/me", {
-          withCredentials: true,
-        });
-        setPatientId(data?.user?._id || null);
-      } catch (error) {
-        console.error("Fetch patient error:", error);
-      }
-    };
-    fetchPatient();
-  }, []);
-
-
+  // Nếu bạn vẫn muốn lấy lịch hẹn (không bắt buộc)
   useEffect(() => {
     const fetchAppointment = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/appointment/getall", {
-          withCredentials: true,
-        });
-        const myAppointments = data.appointments.filter(
-          (item) => item.patientId === patientId && ["Pending", "Confirmed", "Accepted"].includes(item.status)
+        const { data } = await axios.get(
+          "http://localhost:4000/api/v1/appointment/getall",
+          { withCredentials: true, headers: { "Cache-Control": "no-cache" } }
         );
+
+        const myAppointments = (data.appointments || [])
+          .filter((item) =>
+            ["Pending", "Confirmed", "Accepted"].includes(item.status)
+          )
+          .sort(
+            (a, b) =>
+              new Date(b.appointment_date) - new Date(a.appointment_date)
+          );
+
         console.log("Lịch hẹn tìm thấy:", myAppointments);
+
         if (myAppointments.length > 0) {
           setAppointmentId(myAppointments[0]._id);
+        } else {
+          setAppointmentId(null); // không có cũng OK
         }
       } catch (error) {
         console.error("Fetch appointment error:", error);
       }
     };
 
-    if (patientId) {
-      fetchAppointment();
-    }
-  }, [patientId]);
-    // Vẽ khoanh vùng lên canvas
+    fetchAppointment();
+  }, []);
+
+  // Vẽ khoanh vùng lên canvas
   useEffect(() => {
     if (!result?.detections || !canvasRef.current || !imageRef.current || !showAnnotations) return;
 
@@ -110,20 +104,28 @@ const XrayDiagnosis = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!image) return alert("Vui lòng chọn ảnh X-quang!");
-    if (!patientId || !appointmentId) return alert("Thiếu thông tin bệnh nhân hoặc lịch hẹn!");
 
     setLoading(true);
+
     const formData = new FormData();
     formData.append("xrayImage", image);
-    formData.append("patientId", patientId);
-    formData.append("appointmentId", appointmentId);
+
+    // Chỉ gửi appointmentId nếu có (không bắt buộc)
+    if (appointmentId) {
+      formData.append("appointmentId", appointmentId);
+    }
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/v1/xray/diagnose", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      });
+      const { data } = await axios.post(
+        "http://localhost:4000/api/v1/xray/diagnose",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );
 
       setResult({
         ...data.data,
@@ -158,7 +160,9 @@ const XrayDiagnosis = () => {
       link.click();
     }
   };
-    return (
+
+
+  return (
     <div className="xray-diagnosis-page">
       <div className="xray-container">
         <div className="xray-header">
@@ -188,7 +192,6 @@ const XrayDiagnosis = () => {
                     </div>
                   ) : (
                     <>
-                      
                       <div className="upload-text">
                         <h3>Click để chọn ảnh X-quang</h3>
                         <p>Hỗ trợ: PNG, JPG, JPEG (tối đa 10MB)</p>

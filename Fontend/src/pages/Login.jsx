@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Context } from "../main.jsx"; // ✅ import từ main.jsx
+import { Context } from "../context.jsx";   // ✅ import đúng
 
 const Login = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
+  const { setIsAuthenticated, setUser } = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Tự động điền email nếu đã lưu
   useEffect(() => {
     const savedEmail = localStorage.getItem("savedEmail");
     if (savedEmail) {
@@ -39,7 +38,6 @@ const Login = () => {
       toast.success(res.data.message);
       setIsAuthenticated(true);
 
-      // Lấy thông tin user
       const userRes = await axios.get(
         role === "Admin"
           ? "http://localhost:4000/api/v1/user/admin/me"
@@ -49,18 +47,20 @@ const Login = () => {
 
       setUser(userRes.data.user);
 
-      // ✅ Lưu email nếu chọn "Nhớ tài khoản"
       if (rememberMe) {
         localStorage.setItem("savedEmail", email);
       } else {
         localStorage.removeItem("savedEmail");
       }
 
-      // 👉 Điều hướng theo vai trò
       if (role === "Admin") {
-        window.location.href = "http://localhost:5174/"; // sang dashboard
+        const token = res.data?.token;
+        if (token) {
+          localStorage.setItem("adminToken", token);
+        }
+        navigate("/dashboard");   // ✅ chuyển tới dashboard
       } else {
-        navigate("/"); // về trang chính
+        navigate("/"); // bệnh nhân về trang chính
       }
 
       setPassword("");
@@ -68,10 +68,6 @@ const Login = () => {
       toast.error(error.response?.data?.message || "Đăng nhập thất bại!");
     }
   };
-
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <div className="container form-component login-form">

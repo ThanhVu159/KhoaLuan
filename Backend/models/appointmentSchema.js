@@ -18,11 +18,11 @@ const appointmentSchema = new mongoose.Schema({
     validate: [validator.isEmail, "Vui lòng nhập Email hợp lệ!"],
   },
   phone: {
-    type: String,
-    required: [true, "Vui lòng nhập Số điện thoại!"],
-    minLength: [9, "Số điện thoại phải đúng 9 chữ số!"],
-    maxLength: [9, "Số điện thoại phải đúng 9 chữ số!"],
-  },
+  type: String,
+  required: [true, "Vui lòng nhập Số điện thoại!"],
+  minLength: [9, "Số điện thoại phải có ít nhất 9 chữ số!"],
+  maxLength: [11, "Số điện thoại không được quá 11 chữ số!"],
+},
   dob: {
     type: Date,
     required: [true, "Vui lòng nhập Ngày sinh!"],

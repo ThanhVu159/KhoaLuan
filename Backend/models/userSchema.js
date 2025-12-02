@@ -23,9 +23,8 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: [true, "Cần có số điện thoại!"],
-    minLength: [9, "Số điện thoại phải chứa chính xác 9 chữ số"],
-    maxLength: [11, "Số điện thoại phải chứa chính xác 11 chữ số"],
-   
+    minLength: [9, "Số điện thoại phải chứa ít nhất 9 chữ số"],
+    maxLength: [11, "Số điện thoại không được quá 11 chữ số"],
   },
   dob: {
     type: Date,
@@ -34,7 +33,7 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: [true, "Giới tính là bắt buộc!"],
-    enum: ["Nam", "Nữ",],
+    enum: ["Nam", "Nữ"],
   },
   password: {
     type: String,
@@ -45,7 +44,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: [true, "Cần có vai trò của người dùng!"],
-    enum: ["Patient", "Admin"],
+    enum: ["Patient", "Admin", "Doctor"],
   },
   doctorDepartment: {
     type: String,
@@ -54,22 +53,48 @@ const userSchema = new mongoose.Schema({
     public_id: String,
     url: String,
   },
+  appointments: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Appointment",
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
+// Hash mật khẩu trước khi lưu
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
+// So sánh mật khẩu
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// Tạo JWT
 userSchema.methods.generateJsonWebToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRES,
-  });
+  console.log("📦 Đang tạo token cho:", this.email);
+  console.log("🔑 Secret:", process.env.JWT_SECRET_KEY);
+  console.log("⏳ Expire:", process.env.JWT_EXPIRES);
+
+  const token = jwt.sign(
+    {
+      id: this._id.toString(),
+      role: this.role,
+      email: this.email,
+    },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: process.env.JWT_EXPIRES || "7d" } // fallback nếu thiếu biến môi trường
+  );
+
+  console.log("🔐 Token tạo ra:", token);
+  return token;
 };
 
 export const User = mongoose.model("User", userSchema);

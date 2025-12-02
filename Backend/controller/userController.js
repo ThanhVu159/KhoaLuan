@@ -4,6 +4,7 @@ import ErrorHandler from "../middlewares/errorMiddleware.js";
 import { generateToken } from "../utils/jwtToken.js";
 import cloudinary from "cloudinary";
 
+// Bộ chuyển đổi tên chuyên khoa sang tiếng Việt
 const departmentMap = {
   Pediatrics: "Nhi",
   Cardiology: "Tim mạch",
@@ -18,7 +19,7 @@ const departmentMap = {
 };
 
 // ==========================
-//  Patient Register
+//  Đăng ký bệnh nhân
 // ==========================
 export const patientRegister = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, phone, dob, gender, password } = req.body;
@@ -44,7 +45,7 @@ export const patientRegister = catchAsyncErrors(async (req, res, next) => {
 });
 
 // ==========================
-//  Login
+//  Đăng nhập
 // ==========================
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
@@ -55,16 +56,17 @@ export const login = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email }).select("+password");
   if (!user) return next(new ErrorHandler("Email hoặc mật khẩu không hợp lệ!", 400));
 
-  if (!(await user.comparePassword(password)))
-    return next(new ErrorHandler("Email hoặc mật khẩu không hợp lệ!", 400));
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) return next(new ErrorHandler("Email hoặc mật khẩu không hợp lệ!", 400));
 
   if (role !== user.role)
     return next(new ErrorHandler("Không đúng vai trò đăng nhập!", 400));
 
-  generateToken(user, "Đăng nhập thành công", 200, res);
+  generateToken(user, "Đăng nhập thành công!", 200, res);
 });
+
 // ==========================
-//  Add New Admin
+//  Thêm quản trị viên mới
 // ==========================
 export const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, phone, dob, gender, password } = req.body;
@@ -90,22 +92,21 @@ export const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
 });
 
 // ==========================
-//  Get All Doctors
+//  Lấy danh sách bác sĩ
 // ==========================
 export const getAllDoctors = catchAsyncErrors(async (req, res, next) => {
   const doctors = await User.find({ role: "Doctor" });
 
   const doctorsWithVNDepartment = doctors.map((doc) => ({
     ...doc._doc,
-    doctorDepartmentVN:
-      departmentMap[doc.doctorDepartment] || doc.doctorDepartment,
+    doctorDepartmentVN: departmentMap[doc.doctorDepartment] || doc.doctorDepartment,
   }));
 
   res.status(200).json({ success: true, doctors: doctorsWithVNDepartment });
 });
 
 // ==========================
-//  Add New Doctor
+//  Thêm bác sĩ mới
 // ==========================
 export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
   if (!req.files || !req.files.docAvatar)
@@ -143,9 +144,7 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
   if (await User.findOne({ email }))
     return next(new ErrorHandler("Email đã được sử dụng!", 400));
 
-  const cloudinaryResponse = await cloudinary.uploader.upload(
-    docAvatar.tempFilePath
-  );
+  const cloudinaryResponse = await cloudinary.uploader.upload(docAvatar.tempFilePath);
 
   const doctor = await User.create({
     firstName,
@@ -175,59 +174,49 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
 });
 
 // ==========================
-//  Delete Doctor
+//  Xóa bác sĩ
 // ==========================
 export const deleteDoctor = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 
   const doctor = await User.findById(id);
-
   if (!doctor) return next(new ErrorHandler("Không tìm thấy bác sĩ!", 404));
-
   if (doctor.role !== "Doctor")
     return next(new ErrorHandler("ID này không phải bác sĩ!", 400));
 
   await doctor.deleteOne();
 
-  res.status(200).json({
-    success: true,
-    message: "Đã xoá bác sĩ!",
-  });
+  res.status(200).json({ success: true, message: "Đã xoá bác sĩ!" });
 });
 
 // ==========================
-//  Delete Patient
+//  Xóa bệnh nhân
 // ==========================
 export const deletePatient = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 
   const patient = await User.findById(id);
-
-  if (!patient)
-    return next(new ErrorHandler("Không tìm thấy bệnh nhân!", 404));
-
+  if (!patient) return next(new ErrorHandler("Không tìm thấy bệnh nhân!", 404));
   if (patient.role !== "Patient")
     return next(new ErrorHandler("ID này không phải bệnh nhân!", 400));
 
   await patient.deleteOne();
 
-  res.status(200).json({
-    success: true,
-    message: "Đã xoá bệnh nhân!",
-  });
+  res.status(200).json({ success: true, message: "Đã xoá bệnh nhân!" });
 });
 
 // ==========================
-//  Get User Details
+//  Lấy thông tin người dùng
 // ==========================
 export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const user = { ...req.user._doc };
   delete user.password;
+
   res.status(200).json({ success: true, user });
 });
 
 // ==========================
-//  Logout
+//  Đăng xuất
 // ==========================
 export const logoutAdmin = catchAsyncErrors(async (req, res) => {
   res
@@ -241,4 +230,15 @@ export const logoutPatient = catchAsyncErrors(async (req, res) => {
     .status(200)
     .cookie("patientToken", "", { httpOnly: true, expires: new Date(0) })
     .json({ success: true, message: "Bệnh nhân đăng xuất thành công" });
+});
+
+// ==========================
+//  Lấy hồ sơ bệnh nhân (kèm lịch hẹn)
+// ==========================
+export const getPatientProfile = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.userId).populate("appointments");
+
+  if (!user) return next(new ErrorHandler("Không tìm thấy người dùng!", 404));
+
+  res.status(200).json({ success: true, user });
 });

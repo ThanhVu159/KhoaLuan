@@ -6,30 +6,26 @@ import { toast } from "react-toastify";
 import "./Profile.css";
 
 const Profile = () => {
-  const { isAuthenticated, user } = useContext(Context);
+  const { isAuthenticated } = useContext(Context);
+  const [profileUser, setProfileUser] = useState(null);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    const fetchAppointments = async () => {
+    const fetchProfile = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/appointment/getall", {
+        const { data } = await axios.get("http://localhost:4000/api/v1/user/patient/profile", {
           withCredentials: true,
         });
 
-        const myAppointments = data.appointments.filter(
-          (item) => item.patientId === user._id
-        );
-
-        setAppointments(myAppointments);
+        setProfileUser(data.user);
+        setAppointments(data.user.appointments);
       } catch (error) {
-        toast.error("Không thể lấy lịch hẹn");
+        toast.error("Không thể lấy hồ sơ");
       }
     };
 
-    if (user?._id) {
-      fetchAppointments();
-    }
-  }, [user]);
+    fetchProfile();
+  }, []);
 
   const handleCancelAppointment = async (id) => {
     if (!window.confirm("Bạn có chắc muốn huỷ lịch hẹn này?")) return;
@@ -89,17 +85,17 @@ const Profile = () => {
     <section className="page profile">
       <h1 className="profile-title">Hồ sơ</h1>
       <p>
-        Xin chào <strong>{user.firstName} {user.lastName}</strong>! Đây là thông tin cá nhân và lịch hẹn của bạn.
+        Xin chào <strong>{profileUser?.firstName} {profileUser?.lastName}</strong>! Đây là thông tin cá nhân và lịch hẹn của bạn.
       </p>
 
       <div className="card info">
         <h2 className="section-title">Thông tin cá nhân</h2>
         <ul>
-          <li><strong>Email:</strong> {user.email}</li>
-          <li><strong>Số điện thoại:</strong> {user.phone}</li>
-          <li><strong>Địa chỉ:</strong> {user.address || "Chưa cập nhật"}</li>
-          <li><strong>Ngày sinh:</strong> {user.dob?.substring(0, 10)}</li>
-          <li><strong>Giới tính:</strong> {translateGender(user.gender)}</li>
+          <li><strong>Email:</strong> {profileUser?.email}</li>
+          <li><strong>Số điện thoại:</strong> {profileUser?.phone}</li>
+          <li><strong>Địa chỉ:</strong> {profileUser?.address || "Chưa cập nhật"}</li>
+          <li><strong>Ngày sinh:</strong> {profileUser?.dob?.substring(0, 10)}</li>
+          <li><strong>Giới tính:</strong> {translateGender(profileUser?.gender)}</li>
         </ul>
       </div>
 
@@ -130,15 +126,15 @@ const Profile = () => {
                     {item.result ? (
                       item.result.fractureDetected ? (
                         <span className="ai-result success">
-                           {item.result.region} 
+                          {item.result.region}
                         </span>
                       ) : (
                         <span className="ai-result normal">
-                           Không phát hiện gãy xương
+                          Không phát hiện gãy xương
                         </span>
                       )
                     ) : (
-                      <span className="ai-result pending"> Đang xử lý kết quả AI</span>
+                      <span className="ai-result pending">Đang xử lý kết quả AI</span>
                     )}
                   </td>
                   <td>

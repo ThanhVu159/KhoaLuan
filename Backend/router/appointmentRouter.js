@@ -1,10 +1,9 @@
 import express from "express";
 import {
-
   postAppointment,
   getAllAppointments,
   updateAppointmentStatus,
-   deleteAppointment,
+  deleteAppointment,
 } from "../controller/appointmentController.js";
 import {
   isAdminAuthenticated,
@@ -14,8 +13,8 @@ import {
 const router = express.Router();
 
 router.post("/post", isPatientAuthenticated, postAppointment);
-router.get("/getall", isAdminAuthenticated, getAllAppointments);
+router.get("/getall", isPatientAuthenticated, getAllAppointments);
 router.put("/update/:id", isAdminAuthenticated, updateAppointmentStatus);
-router.delete("/delete/:id", isAdminAuthenticated, deleteAppointment);
+router.delete("/delete/:id", isPatientAuthenticated, deleteAppointment); 
 
 export default router;
