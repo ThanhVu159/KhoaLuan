@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Appointment from "./pages/Appointment";
 import AboutUs from "./pages/AboutUs";
@@ -14,35 +14,47 @@ import { Context } from "./context";
 import Login from "./pages/Login";
 import XrayPage from "./pages/XrayPage";
 import Profile from "./components/Profile";
-import AdminLogin from "./pages/AdminLogin";
 
-const AppContent = () => {
+const App = () => {
   const { setIsAuthenticated, setUser } = useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const token = localStorage.getItem("token"); 
+        if (!token) {
+          setIsAuthenticated(false);
+          setUser({});
+          return;
+        }
+
         // kiểm tra bệnh nhân
-        const patientRes = await axios.get(
-          "http://localhost:4000/api/v1/user/patient/me",
-          { withCredentials: true }
-        );
-        setIsAuthenticated(true);
-        setUser(patientRes.data.user);
-      } catch {
         try {
+          const patientRes = await axios.get(
+            "http://localhost:4000/api/v1/user/patient/me",
+            {
+              headers: { Authorization: `Bearer ${token}` }, 
+              withCredentials: true,
+            }
+          );
+          setIsAuthenticated(true);
+          setUser(patientRes.data.user);
+          return;
+        } catch {
           // kiểm tra admin
           const adminRes = await axios.get(
             "http://localhost:4000/api/v1/user/admin/me",
-            { withCredentials: true }
+            {
+              headers: { Authorization: `Bearer ${token}` }, 
+              withCredentials: true,
+            }
           );
           setIsAuthenticated(true);
           setUser(adminRes.data.user);
-          // ❌ KHÔNG redirect ở đây nữa
-        } catch {
-          setIsAuthenticated(false);
-          setUser({});
         }
+      } catch {
+        setIsAuthenticated(false);
+        setUser({});
       }
     };
 
@@ -60,19 +72,11 @@ const AppContent = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/xray-diagnosis" element={<XrayPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<AdminLogin />} />
+        {/*  Không cần route /dashboard trong FE */}
       </Routes>
       <Footer />
       <ToastContainer position="top-center" />
     </>
-  );
-};
-
-const App = () => {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
   );
 };
 

@@ -17,7 +17,10 @@ export const generateToken = (user, message, statusCode, res) => {
     .json({
       success: true,
       message,
-      user,
+      user: {
+        ...user._doc, // ✅ tránh gửi cả password hoặc methods
+        password: undefined,
+      },
       token,
     });
 };

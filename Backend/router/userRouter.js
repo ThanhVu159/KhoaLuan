@@ -1,16 +1,16 @@
 import express from "express";
-import { loginUser } from "../controller/authController.js";
-
 import {
-  addNewAdmin,
   addNewDoctor,
   deleteDoctor,
   getAllDoctors,
   getUserDetails,
-  logoutAdmin,
   logoutPatient,
   patientRegister,
-  getPatientProfile,
+  login,
+  getAdminDetails,
+  logoutAdmin,
+  addNewAdmin,
+  getUserProfile, // thêm hàm mới
 } from "../controller/userController.js";
 
 import {
@@ -21,22 +21,27 @@ import {
 } from "../controller/appointmentController.js";
 
 import {
+  isAuthenticated,
   isAdminAuthenticated,
   isPatientAuthenticated,
+  isAuthorized,
 } from "../middlewares/auth.js";
 
 const router = express.Router();
 
 // ---------------- Patient ----------------
 router.post("/patient/register", patientRegister);
+router.post("/login", login);
 router.get("/patient/me", isPatientAuthenticated, getUserDetails);
 router.get("/patient/logout", isPatientAuthenticated, logoutPatient);
-router.get("/patient/profile", isPatientAuthenticated, getPatientProfile);
+
+// ✅ route mới để lấy hồ sơ bệnh nhân kèm lịch hẹn
+router.get("/me", isPatientAuthenticated, getUserProfile);
 
 // ---------------- Admin ----------------
-router.post("/admin/addnew", isAdminAuthenticated, addNewAdmin);
-router.get("/admin/me", isAdminAuthenticated, getUserDetails);
+router.get("/admin/me", isAdminAuthenticated, getAdminDetails);
 router.get("/admin/logout", isAdminAuthenticated, logoutAdmin);
+router.post("/admin/addnew", isAdminAuthenticated, addNewAdmin);
 
 // ---------------- Doctors ----------------
 router.get("/doctor", getAllDoctors);
@@ -45,11 +50,13 @@ router.delete("/doctor/:id", isAdminAuthenticated, deleteDoctor);
 
 // ---------------- Appointments ----------------
 router.post("/appointment/new", isPatientAuthenticated, postAppointment);
-router.get("/appointment/getall", isAdminAuthenticated, getAllAppointments);
+router.get(
+  "/appointment/getall",
+  isAuthenticated,
+  isAuthorized("Admin", "Doctor", "Patient"),
+  getAllAppointments
+);
 router.put("/appointment/update/:id", isAdminAuthenticated, updateAppointmentStatus);
 router.delete("/appointment/delete/:id", isPatientAuthenticated, deleteAppointment);
-
-// ---------------- Auth ----------------
-router.post("/login", loginUser);
 
 export default router;

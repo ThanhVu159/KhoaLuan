@@ -6,10 +6,11 @@ import {
   Navigate,
 } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
 import AddNewDoctor from "./components/AddNewDoctor";
 import Messages from "./components/Messages";
 import Doctors from "./components/Doctors";
-import { Context } from "./context.jsx";
+import { Context } from "./main";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,52 +18,17 @@ import Sidebar from "./components/Sidebar";
 import AddNewAdmin from "./components/AddNewAdmin";
 import "./App.css";
 
-// ✅ Route bảo vệ
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useContext(Context);
-
-  if (!isAuthenticated) {
-    return <Navigate to="/welcome" replace />;
-  }
-
-  if (user?.role !== "Admin") {
-    return <Navigate to="/welcome" replace />;
-  }
-
-  return children;
-};
-
-// ✅ Trang Welcome công khai
-const Welcome = () => {
-  return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>Chào mừng đến Dashboard</h2>
-      <p>Vui lòng đăng nhập bằng tài khoản Admin để tiếp tục.</p>
-    </div>
-  );
-};
-
-// ✅ Trang NotFound
-const NotFound = () => {
-  return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>404 - Không tìm thấy trang</h2>
-      <p>Đường dẫn bạn nhập không tồn tại.</p>
-    </div>
-  );
-};
-
 const App = () => {
-  const { setIsAuthenticated, setUser, isAuthenticated, user } =
+  const { isAuthenticated, setIsAuthenticated, admin, setAdmin } =
     useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("adminToken");
+        const token = localStorage.getItem("token");
         if (!token) {
           setIsAuthenticated(false);
-          setUser(null);
+          setAdmin(null);
           return;
         }
 
@@ -73,91 +39,72 @@ const App = () => {
             withCredentials: true,
           }
         );
-
         setIsAuthenticated(true);
-        setUser(response.data.user);
+        setAdmin(response.data.user);
       } catch (error) {
         setIsAuthenticated(false);
-        setUser(null);
+        setAdmin(null);
       }
     };
-
     fetchUser();
-  }, [setIsAuthenticated, setUser]);
+  }, []);
 
   return (
     <Router>
-      {/* ✅ Sidebar chỉ hiển thị khi là admin */}
-      {isAuthenticated && user?.role === "Admin" && <Sidebar />}
-
+      <Sidebar />
       <Routes>
-        {/* Trang Welcome công khai */}
-        <Route path="/welcome" element={<Welcome />} />
-
-        {/* Trang chủ */}
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            isAuthenticated && admin?.role === "Admin" ? (
               <Dashboard />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-
-        {/* Trang dashboard riêng */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Quản lý bác sĩ */}
+        <Route path="/login" element={<Login />} />
         <Route
           path="/doctor/addnew"
           element={
-            <ProtectedRoute>
+            isAuthenticated && admin?.role === "Admin" ? (
               <AddNewDoctor />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-
-        {/* Quản lý admin */}
         <Route
           path="/admin/addnew"
           element={
-            <ProtectedRoute>
+            isAuthenticated && admin?.role === "Admin" ? (
               <AddNewAdmin />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-
-        {/* Tin nhắn */}
         <Route
           path="/messages"
           element={
-            <ProtectedRoute>
+            isAuthenticated && admin?.role === "Admin" ? (
               <Messages />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-
-        {/* Danh sách bác sĩ */}
         <Route
           path="/doctors"
           element={
-            <ProtectedRoute>
+            isAuthenticated && admin?.role === "Admin" ? (
               <Doctors />
-            </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-
-        {/* Route mặc định cho URL sai */}
-        <Route path="*" element={<NotFound />} />
       </Routes>
-
       <ToastContainer position="top-center" />
     </Router>
   );

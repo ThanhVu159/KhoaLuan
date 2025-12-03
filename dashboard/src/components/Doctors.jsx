@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Context } from "../context";
+import { Context } from "../main";
 import { Navigate } from "react-router-dom";
-
 
 const departmentMap = {
   pediatrics: "Nhi",
@@ -26,7 +25,7 @@ const Doctors = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/doctors",
+          "http://localhost:4000/api/v1/doctor", // ✅ lấy danh sách bác sĩ
           { withCredentials: true }
         );
         setDoctors(data.doctors);
@@ -42,7 +41,7 @@ const Doctors = () => {
     setDeletingId(id);
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/v1/user/doctor/${id}`,
+        `http://localhost:4000/api/v1/doctor/${id}`, // ✅ sửa đúng endpoint
         { withCredentials: true }
       );
       toast.success(data.message);

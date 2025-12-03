@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Context } from "../context";
+import { Context } from "../main";
 import axios from "axios";
 
 const AddNewDoctor = () => {
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated } = useContext(Context);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -19,7 +19,6 @@ const AddNewDoctor = () => {
   const [docAvatarPreview, setDocAvatarPreview] = useState("");
 
   const navigateTo = useNavigate();
-
 
   const departmentsArray = [
     { value: "Pediatrics", label: "Nhi" },
@@ -35,6 +34,7 @@ const AddNewDoctor = () => {
 
   const handleAvatar = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -45,6 +45,12 @@ const AddNewDoctor = () => {
 
   const handleAddNewDoctor = async (e) => {
     e.preventDefault();
+
+    if (!docAvatar) {
+      toast.error("Vui lòng chọn ảnh đại diện bác sĩ!");
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append("firstName", firstName);
@@ -53,12 +59,12 @@ const AddNewDoctor = () => {
       formData.append("phone", phone);
       formData.append("password", password);
       formData.append("dob", dob);
-      formData.append("gender", gender); 
-      formData.append("doctorDepartment", doctorDepartment); 
+      formData.append("gender", gender);
+      formData.append("doctorDepartment", doctorDepartment);
       formData.append("docAvatar", docAvatar);
 
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/user/doctor/addnew",
+        "http://localhost:4000/api/v1/doctor/addnew", // ✅ endpoint đúng
         formData,
         {
           withCredentials: true,
@@ -67,10 +73,9 @@ const AddNewDoctor = () => {
       );
 
       toast.success(data.message);
-      setIsAuthenticated(true);
-      navigateTo("/");
+      navigateTo("/doctors"); // ✅ điều hướng về danh sách bác sĩ
 
-
+      // reset form
       setFirstName("");
       setLastName("");
       setEmail("");
@@ -82,6 +87,7 @@ const AddNewDoctor = () => {
       setDocAvatar("");
       setDocAvatarPreview("");
     } catch (error) {
+      console.error(error.response?.data); // ✅ log chi tiết lỗi
       toast.error(error.response?.data?.message || "Đã xảy ra lỗi!");
     }
   };
@@ -136,12 +142,12 @@ const AddNewDoctor = () => {
                 onChange={(e) => setDob(e.target.value)}
               />
 
-              <select value={gender} onChange={(e) => setGender(e.target.value)}>
-                <option value="">Chọn giới tính</option>
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-              </select>
-
+             
+<select value={gender} onChange={(e) => setGender(e.target.value)}>
+  <option value="">Chọn giới tính</option>
+  <option value="Male">Nam</option>
+  <option value="Female">Nữ</option>
+</select>
               <input
                 type="password"
                 placeholder="Mật khẩu"

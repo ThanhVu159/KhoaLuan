@@ -14,9 +14,9 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/patient/profile",
-          { withCredentials: true }
-        );
+  "http://localhost:4000/api/v1/user/me",
+  { withCredentials: true }
+);
 
         console.log("Dữ liệu hồ sơ:", data); // ✅ kiểm tra dữ liệu trả về
 

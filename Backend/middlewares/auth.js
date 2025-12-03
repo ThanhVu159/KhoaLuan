@@ -1,70 +1,111 @@
 import jwt from "jsonwebtoken";
+import { User } from "../models/userSchema.js";
+import { catchAsyncErrors } from "./catchAsyncErrors.js";
 import ErrorHandler from "./errorMiddleware.js";
 
-// Hàm dùng chung để lấy token từ cookie hoặc header
-const getToken = (req, cookieName) => {
-  const tokenFromCookie = req.cookies[cookieName];
-  const authHeader = req.headers["authorization"];
-  const tokenFromHeader = authHeader?.startsWith("Bearer ")
-    ? authHeader.split(" ")[1]
-    : null;
+// Middleware chung cho tất cả user
+export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  let token;
 
-  return tokenFromCookie || tokenFromHeader || null;
-};
-
-// ✅ Xác thực bệnh nhân
-export const isPatientAuthenticated = (req, res, next) => {
-  const token = getToken(req, "patientToken");
-  if (!token) return next(new ErrorHandler("Vui lòng đăng nhập!", 401));
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if (decoded.role !== "Patient") {
-      return next(new ErrorHandler("Không có quyền truy cập!", 403));
-    }
-
-    req.user = decoded;
-    req.userId = decoded.id || decoded._id;
-    next();
-  } catch (err) {
-    return next(new ErrorHandler("Token không hợp lệ!", 401));
+  if (req.cookies.adminToken) {
+    token = req.cookies.adminToken;
+  } else if (req.cookies.patientToken) {
+    token = req.cookies.patientToken;
+  } else if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
   }
-};
 
-// ✅ Xác thực admin
-export const isAdminAuthenticated = (req, res, next) => {
-  const token = getToken(req, "adminToken");
-  if (!token) return next(new ErrorHandler("Vui lòng đăng nhập!", 401));
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if (decoded.role !== "Admin") {
-      return next(new ErrorHandler("Không có quyền truy cập!", 403));
-    }
-
-    req.user = decoded;
-    req.userId = decoded.id || decoded._id;
-    next();
-  } catch (err) {
-    return next(new ErrorHandler("Token không hợp lệ!", 401));
+  if (!token) {
+    return next(new ErrorHandler("User is not authenticated!", 401));
   }
-};
 
-// ✅ Xác thực bác sĩ
-export const isDoctorAuthenticated = (req, res, next) => {
-  const token = getToken(req, "doctorToken"); // sửa lại cookie đúng
-  if (!token) return next(new ErrorHandler("Vui lòng đăng nhập!", 401));
-
+  let decoded;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if (decoded.role !== "Doctor") {
-      return next(new ErrorHandler("Không có quyền truy cập!", 403));
-    }
-
-    req.user = decoded;
-    req.userId = decoded.id || decoded._id;
-    next();
+    decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
   } catch (err) {
-    return next(new ErrorHandler("Token không hợp lệ!", 401));
+    return next(new ErrorHandler("Invalid or expired token!", 401));
   }
+
+  const user = await User.findById(decoded.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found!", 404));
+  }
+
+  req.user = user;       // ✅ để controller /me dùng được
+  req.userId = user._id; // ✅ để các controller khác dùng nếu cần
+  next();
+});
+
+// Middleware chỉ cho Admin
+export const isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  const token = req.cookies.adminToken;
+  if (!token) {
+    return next(new ErrorHandler("Dashboard User is not authenticated!", 401));
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  } catch (err) {
+    return next(new ErrorHandler("Invalid or expired token!", 401));
+  }
+
+  const user = await User.findById(decoded.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found!", 404));
+  }
+
+  if (user.role !== "Admin") {
+    return next(new ErrorHandler(`${user.role} not authorized for this resource!`, 403));
+  }
+
+  req.user = user;
+  req.userId = user._id; // ✅ thêm để đồng bộ
+  next();
+});
+
+// Middleware chỉ cho Patient
+export const isPatientAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  const token = req.cookies.patientToken;
+  if (!token) {
+    return next(new ErrorHandler("User is not authenticated!", 401));
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  } catch (err) {
+    return next(new ErrorHandler("Invalid or expired token!", 401));
+  }
+
+  const user = await User.findById(decoded.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found!", 404));
+  }
+
+  if (user.role !== "Patient") {
+    return next(new ErrorHandler(`${user.role} not authorized for this resource!`, 403));
+  }
+
+  req.user = user;
+  req.userId = user._id; // ✅ thêm để dùng trong các controller
+  next();
+});
+
+// Middleware kiểm tra quyền theo role
+export const isAuthorized = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler(
+          `${req.user ? req.user.role : "Unknown"} not allowed to access this resource!`,
+          403
+        )
+      );
+    }
+    next();
+  };
 };

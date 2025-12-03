@@ -18,11 +18,11 @@ const appointmentSchema = new mongoose.Schema({
     validate: [validator.isEmail, "Vui lòng nhập Email hợp lệ!"],
   },
   phone: {
-  type: String,
-  required: [true, "Vui lòng nhập Số điện thoại!"],
-  minLength: [9, "Số điện thoại phải có ít nhất 9 chữ số!"],
-  maxLength: [11, "Số điện thoại không được quá 11 chữ số!"],
-},
+    type: String,
+    required: [true, "Vui lòng nhập Số điện thoại!"],
+    minLength: [9, "Số điện thoại phải có ít nhất 9 chữ số!"],
+    maxLength: [11, "Số điện thoại không được quá 11 chữ số!"],
+  },
   dob: {
     type: Date,
     required: [true, "Vui lòng nhập Ngày sinh!"],
@@ -33,7 +33,7 @@ const appointmentSchema = new mongoose.Schema({
     enum: ["Nam", "Nữ"],
   },
   appointment_date: {
-    type: String,
+    type: Date, // ✅ đổi sang Date để dễ query
     required: [true, "Vui lòng chọn Ngày hẹn!"],
   },
   department: {
@@ -60,11 +60,12 @@ const appointmentSchema = new mongoose.Schema({
   },
   doctorId: {
     type: mongoose.Schema.ObjectId,
+    ref: "User", // ✅ thêm ref để populate bác sĩ
     required: [true, "ID Bác sĩ không hợp lệ!"],
   },
   patientId: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
+    ref: "User", // ✅ populate bệnh nhân
     required: [true, "Vui lòng nhập ID Bệnh nhân!"],
   },
   status: {
@@ -72,8 +73,6 @@ const appointmentSchema = new mongoose.Schema({
     enum: ["Pending", "Accepted", "Rejected"],
     default: "Pending",
   },
-
-
   result: {
     fractureDetected: { type: Boolean, default: false },
     confidence: { type: Number, default: 0 },

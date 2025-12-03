@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../context";
+import { Context } from "../main";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -104,10 +104,10 @@ const AddNewAdmin = () => {
 
           <div>
             <select name="gender" value={formData.gender} onChange={handleChange}>
-              <option value="">Chọn giới tính</option>
-              <option value="Nam">Nam</option>
-              <option value="Nữ">Nữ</option>
-            </select>
+  <option value="">Chọn giới tính</option>
+  <option value="Male">Nam</option>
+  <option value="Female">Nữ</option>
+</select>
 
             <input
               type="password"

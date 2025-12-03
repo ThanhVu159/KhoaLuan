@@ -6,10 +6,10 @@ import { Message } from "../models/messageSchema.js";
 //  Bệnh nhân gửi tin nhắn
 // ------------------------------
 export const sendMessage = catchAsyncErrors(async (req, res, next) => {
-  const { firstName, lastName, email, phone, message: content } = req.body;
+  const { firstName, lastName, email, phone, message } = req.body;
 
   // Validate
-  if (!firstName || !lastName || !email || !phone || !content) {
+  if (!firstName || !lastName || !email || !phone || !message) {
     return next(new ErrorHandler("Hãy điền đầy đủ thông tin!", 400));
   }
 
@@ -19,7 +19,7 @@ export const sendMessage = catchAsyncErrors(async (req, res, next) => {
     lastName,
     email,
     phone,
-    content,
+    message, // ✅ đúng tên field trong schema
   });
 
   res.status(200).json({
@@ -41,7 +41,9 @@ export const getAllMessages = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-
+// ------------------------------
+//  Xoá tin nhắn
+// ------------------------------
 export const deleteMessage = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../context"; 
+import { Context } from "../main";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -20,23 +20,7 @@ const departmentMap = {
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-  const { isAuthenticated, admin } = useContext(Context); 
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/doctors",
-          { withCredentials: true }
-        );
-        setDoctors(data.doctors);
-      } catch (error) {
-        toast.error("Lỗi khi lấy danh sách bác sĩ");
-      }
-    };
-    fetchDoctors();
-  }, []);
+  const [doctors, setDoctors] = useState([]); // ✅ thêm state
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -47,11 +31,24 @@ const Dashboard = () => {
         );
         setAppointments(data.appointments);
       } catch (error) {
-        toast.error("Lỗi khi lấy danh sách lịch hẹn");
         setAppointments([]);
       }
     };
+
+    const fetchDoctors = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:4000/api/v1/user/doctor",
+          { withCredentials: true }
+        );
+        setDoctors(data.doctors);
+      } catch (error) {
+        setDoctors([]);
+      }
+    };
+
     fetchAppointments();
+    fetchDoctors();
   }, []);
 
   const handleUpdateStatus = async (appointmentId, status) => {
@@ -61,14 +58,16 @@ const Dashboard = () => {
         { status },
         { withCredentials: true }
       );
-      setAppointments((prev) =>
-        prev.map((item) =>
-          item._id === appointmentId ? { ...item, status } : item
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) =>
+          appointment._id === appointmentId
+            ? { ...appointment, status }
+            : appointment
         )
       );
       toast.success(data.message);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Cập nhật trạng thái thất bại");
+      toast.error(error.response?.data?.message || "Update failed");
     }
   };
 
@@ -79,18 +78,19 @@ const Dashboard = () => {
         `http://localhost:4000/api/v1/appointment/delete/${appointmentId}`,
         { withCredentials: true }
       );
-      setAppointments((prev) =>
-        prev.filter((item) => item._id !== appointmentId)
-      );
       toast.success(data.message);
+      setAppointments((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment._id !== appointmentId)
+      );
     } catch (error) {
-      toast.error(error.response?.data?.message || "Xoá lịch hẹn thất bại");
+      toast.error(error.response?.data?.message || "Delete failed");
     }
   };
 
-  if (!isAuthenticated || !admin || admin.role !== "Admin") {
-    return <Navigate to="/login" />;
-  }
+  const { isAuthenticated, admin, loading } = useContext(Context);
+
+  if (loading) return <p>Loading...</p>;
+  if (!isAuthenticated) return <Navigate to={"/login"} />;
 
   return (
     <section className="dashboard page">
@@ -99,60 +99,61 @@ const Dashboard = () => {
           <img src="/doc.png" alt="docImg" />
           <div className="content">
             <div>
-              <p>Xin chào</p>
-              <h5>{admin && `${admin.firstName} ${admin.lastName}`}</h5>
+              <p>Hello ,</p>
+              <h5>
+                {admin && admin.firstName && admin.lastName
+                  ? `${admin.firstName} ${admin.lastName}`
+                  : "Admin"}
+              </h5>
             </div>
             <p>
-              Chào mừng quay lại bảng điều khiển quản trị. Hãy kiểm tra và quản lý lịch hẹn, bác sĩ và thông tin hệ thống.
+              Chào mừng bạn đến với Dashboard. Đây là nơi quản lý lịch hẹn và bác sĩ.
             </p>
           </div>
         </div>
-
         <div className="secondBox">
-          <p>Tổng số lịch hẹn</p>
+          <p>Total Appointments</p>
           <h3>{appointments.length}</h3>
         </div>
-
         <div className="thirdBox">
-          <p>Bác sĩ đã đăng ký</p>
-          <h3>{doctors.length}</h3>
+          <p>Registered Doctors</p>
+          <h3>{doctors.length}</h3> {/* ✅ hiển thị số lượng bác sĩ */}
         </div>
       </div>
 
       <div className="banner">
-        <h5>Danh sách lịch hẹn</h5>
-
+        <h5>Appointments</h5>
         <table>
           <thead>
             <tr>
-              <th>Bệnh nhân</th>
-              <th>Ngày hẹn</th>
-              <th>Bác sĩ</th>
-              <th>Khoa</th>
-              <th>Trạng thái</th>
-              <th>Đã khám</th>
+              <th>Patient</th>
+              <th>Date</th>
+              <th>Doctor</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Visited</th>
               <th>Hành động</th>
             </tr>
           </thead>
-
           <tbody>
-            {appointments.length > 0 ? (
+            {appointments && appointments.length > 0 ? (
               appointments.map((appointment) => (
                 <tr key={appointment._id}>
-                  <td>{`${appointment.firstName} ${appointment.lastName}`}</td>
                   <td>
-                    {appointment.appointment_date
-                      ? appointment.appointment_date.substring(0, 16)
-                      : "Không có ngày"}
+                    {appointment.patientId
+                      ? `${appointment.patientId.firstName} ${appointment.patientId.lastName}`
+                      : "N/A"}
                   </td>
+                  <td>{appointment.appointment_date?.substring(0, 16) || "N/A"}</td>
                   <td>
-                    {appointment.doctor
-                      ? `${appointment.doctor.firstName} ${appointment.doctor.lastName}`
-                      : "Chưa có bác sĩ"}
+                    {appointment.doctorId
+                      ? `${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`
+                      : "N/A"}
                   </td>
                   <td>
                     {departmentMap[appointment.department?.toLowerCase()] ||
-                      appointment.department}
+                      appointment.department ||
+                      "N/A"}
                   </td>
                   <td>
                     <select
@@ -168,9 +169,15 @@ const Dashboard = () => {
                         handleUpdateStatus(appointment._id, e.target.value)
                       }
                     >
-                      <option value="Pending" className="value-pending">Đang chờ</option>
-                      <option value="Accepted" className="value-accepted">Đã duyệt</option>
-                      <option value="Rejected" className="value-rejected">Từ chối</option>
+                      <option value="Pending" className="value-pending">
+                        Pending
+                      </option>
+                      <option value="Accepted" className="value-accepted">
+                        Accepted
+                      </option>
+                      <option value="Rejected" className="value-rejected">
+                        Rejected
+                      </option>
                     </select>
                   </td>
                   <td>
@@ -192,7 +199,9 @@ const Dashboard = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7">Không có lịch hẹn nào!</td>
+                <td colSpan="7" style={{ textAlign: "center" }}>
+                  No Appointments Found!
+                </td>
               </tr>
             )}
           </tbody>

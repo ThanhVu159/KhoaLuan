@@ -13,9 +13,9 @@ const AppointmentForm = () => {
   const [department, setDepartment] = useState("Nhi khoa");
   const [doctorFirstName, setDoctorFirstName] = useState("");
   const [doctorLastName, setDoctorLastName] = useState("");
+  const [doctorId, setDoctorId] = useState(""); // ✅ thêm doctorId
   const [address, setAddress] = useState("");
   const [hasVisited, setHasVisited] = useState(false);
-
 
   const departmentsArray = [
     "Nhi khoa",
@@ -28,7 +28,6 @@ const AppointmentForm = () => {
     "Da liễu",
     "Tai - Mũi - Họng",
   ];
-
 
   const departmentMap = {
     "Nhi khoa": "Pediatrics",
@@ -44,16 +43,16 @@ const AppointmentForm = () => {
 
   const [doctors, setDoctors] = useState([]);
 
- 
+  // ✅ gọi đúng endpoint /api/v1/doctor
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/doctors",
+          "http://localhost:4000/api/v1/doctor",
           { withCredentials: true }
         );
         setDoctors(data.doctors);
-        console.log("Danh sách bác sĩ:", data.doctors); 
+        console.log("Danh sách bác sĩ:", data.doctors);
       } catch (error) {
         console.error("Lỗi khi tải danh sách bác sĩ:", error);
         toast.error("Không thể tải danh sách bác sĩ");
@@ -62,12 +61,12 @@ const AppointmentForm = () => {
     fetchDoctors();
   }, []);
 
-  // Gửi form đặt lịch hẹn
+  // ✅ gọi đúng endpoint /api/v1/appointment/new
   const handleAppointment = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/appointment/post",
+        "http://localhost:4000/api/v1/appointment/new",
         {
           firstName,
           lastName,
@@ -76,9 +75,10 @@ const AppointmentForm = () => {
           dob,
           gender,
           appointment_date: appointmentDate,
-          department: departmentMap[department], 
+          department: departmentMap[department],
           doctor_firstName: doctorFirstName,
           doctor_lastName: doctorLastName,
+          doctorId, // ✅ gửi lên backend
           hasVisited,
           address,
         },
@@ -101,6 +101,7 @@ const AppointmentForm = () => {
       setDepartment("Nhi khoa");
       setDoctorFirstName("");
       setDoctorLastName("");
+      setDoctorId("");
       setHasVisited(false);
       setAddress("");
     } catch (error) {
@@ -176,6 +177,7 @@ const AppointmentForm = () => {
               setDepartment(e.target.value);
               setDoctorFirstName("");
               setDoctorLastName("");
+              setDoctorId("");
             }}
           >
             {departmentsArray.map((depart, index) => (
@@ -189,21 +191,24 @@ const AppointmentForm = () => {
         <div>
           <select
             value={
-              doctorFirstName && doctorLastName
+              doctorFirstName && doctorLastName && doctorId
                 ? JSON.stringify({
                     firstName: doctorFirstName,
                     lastName: doctorLastName,
+                    id: doctorId,
                   })
                 : ""
             }
             onChange={(e) => {
               if (e.target.value) {
-                const { firstName, lastName } = JSON.parse(e.target.value);
+                const { firstName, lastName, id } = JSON.parse(e.target.value);
                 setDoctorFirstName(firstName);
                 setDoctorLastName(lastName);
+                setDoctorId(id); // ✅ gán ID bác sĩ
               } else {
                 setDoctorFirstName("");
                 setDoctorLastName("");
+                setDoctorId("");
               }
             }}
             disabled={!department}
@@ -215,13 +220,13 @@ const AppointmentForm = () => {
                 value={JSON.stringify({
                   firstName: doctor.firstName,
                   lastName: doctor.lastName,
+                  id: doctor._id, // ✅ truyền ID bác sĩ
                 })}
               >
                 {doctor.firstName} {doctor.lastName}
               </option>
             ))}
           </select>
-          {}
           {department && (
             <small style={{ color: "#666", marginTop: "5px", display: "block" }}>
               Tìm thấy {filteredDoctors.length} bác sĩ trong khoa {department}
