@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { Context } from "../main";
+import { Context } from "../context";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Profile.css";
@@ -13,12 +13,20 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/user/patient/profile", {
-          withCredentials: true,
-        });
+        const { data } = await axios.get(
+          "http://localhost:4000/api/v1/user/patient/profile",
+          { withCredentials: true }
+        );
 
-        setProfileUser(data.user);
-        setAppointments(data.user.appointments);
+        console.log("Dữ liệu hồ sơ:", data); // ✅ kiểm tra dữ liệu trả về
+
+        // Nếu backend trả về { user: {...} }
+        if (data.user) {
+          setProfileUser(data.user);
+          setAppointments(data.user.appointments || []);
+        } else {
+          toast.error("Không thể lấy hồ sơ");
+        }
       } catch (error) {
         toast.error("Không thể lấy hồ sơ");
       }
@@ -80,22 +88,23 @@ const Profile = () => {
   };
 
   if (!isAuthenticated) return <Navigate to="/login" />;
+  if (!profileUser) return <p>Không thể lấy hồ sơ</p>; // ✅ thêm kiểm tra
 
   return (
     <section className="page profile">
       <h1 className="profile-title">Hồ sơ</h1>
       <p>
-        Xin chào <strong>{profileUser?.firstName} {profileUser?.lastName}</strong>! Đây là thông tin cá nhân và lịch hẹn của bạn.
+        Xin chào <strong>{profileUser.firstName} {profileUser.lastName}</strong>! Đây là thông tin cá nhân và lịch hẹn của bạn.
       </p>
 
       <div className="card info">
         <h2 className="section-title">Thông tin cá nhân</h2>
         <ul>
-          <li><strong>Email:</strong> {profileUser?.email}</li>
-          <li><strong>Số điện thoại:</strong> {profileUser?.phone}</li>
-          <li><strong>Địa chỉ:</strong> {profileUser?.address || "Chưa cập nhật"}</li>
-          <li><strong>Ngày sinh:</strong> {profileUser?.dob?.substring(0, 10)}</li>
-          <li><strong>Giới tính:</strong> {translateGender(profileUser?.gender)}</li>
+          <li><strong>Email:</strong> {profileUser.email}</li>
+          <li><strong>Số điện thoại:</strong> {profileUser.phone || "Chưa cập nhật"}</li>
+          <li><strong>Địa chỉ:</strong> {profileUser.address || "Chưa cập nhật"}</li>
+          <li><strong>Ngày sinh:</strong> {profileUser.dob ? profileUser.dob.substring(0, 10) : "Chưa cập nhật"}</li>
+          <li><strong>Giới tính:</strong> {translateGender(profileUser.gender)}</li>
         </ul>
       </div>
 
@@ -117,8 +126,8 @@ const Profile = () => {
             <tbody>
               {appointments.map((item) => (
                 <tr key={item._id}>
-                  <td>{item.appointment_date.substring(0, 16)}</td>
-                  <td>{item.doctor.firstName} {item.doctor.lastName}</td>
+                  <td>{item.appointment_date?.substring(0, 16)}</td>
+                  <td>{item.doctor?.firstName} {item.doctor?.lastName}</td>
                   <td>{translateDepartment(item.department)}</td>
                   <td>{translateStatus(item.status)}</td>
                   <td>{item.hasVisited ? "✓" : "✗"}</td>

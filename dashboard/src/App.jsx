@@ -6,11 +6,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
 import AddNewDoctor from "./components/AddNewDoctor";
 import Messages from "./components/Messages";
 import Doctors from "./components/Doctors";
-import { Context } from "./context.jsx";   // ✅ import đúng từ context
+import { Context } from "./context.jsx";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,14 +22,24 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useContext(Context);
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/welcome" replace />;
   }
 
   if (user?.role !== "Admin") {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/welcome" replace />;
   }
 
   return children;
+};
+
+// ✅ Trang Welcome công khai
+const Welcome = () => {
+  return (
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <h2>Chào mừng đến Dashboard</h2>
+      <p>Vui lòng đăng nhập bằng tài khoản Admin để tiếp tục.</p>
+    </div>
+  );
 };
 
 // ✅ Trang NotFound
@@ -53,7 +62,7 @@ const App = () => {
         const token = localStorage.getItem("adminToken");
         if (!token) {
           setIsAuthenticated(false);
-          setUser({});
+          setUser(null);
           return;
         }
 
@@ -69,7 +78,7 @@ const App = () => {
         setUser(response.data.user);
       } catch (error) {
         setIsAuthenticated(false);
-        setUser({});
+        setUser(null);
       }
     };
 
@@ -82,6 +91,9 @@ const App = () => {
       {isAuthenticated && user?.role === "Admin" && <Sidebar />}
 
       <Routes>
+        {/* Trang Welcome công khai */}
+        <Route path="/welcome" element={<Welcome />} />
+
         {/* Trang chủ */}
         <Route
           path="/"
@@ -92,7 +104,7 @@ const App = () => {
           }
         />
 
-        {/* ✅ Trang dashboard riêng */}
+        {/* Trang dashboard riêng */}
         <Route
           path="/dashboard"
           element={
@@ -101,9 +113,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-
-        {/* Login */}
-        <Route path="/login" element={<Login />} />
 
         {/* Quản lý bác sĩ */}
         <Route
@@ -145,7 +154,7 @@ const App = () => {
           }
         />
 
-        {/* ✅ Route mặc định cho URL sai */}
+        {/* Route mặc định cho URL sai */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
