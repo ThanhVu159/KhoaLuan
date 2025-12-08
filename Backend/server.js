@@ -23,6 +23,13 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// ✅ Log để kiểm tra Cloudinary đã kết nối
+console.log("✅ Cloudinary configured:", {
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY ? "***" : "MISSING",
+  api_secret: process.env.CLOUDINARY_API_SECRET ? "***" : "MISSING",
+});
+
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

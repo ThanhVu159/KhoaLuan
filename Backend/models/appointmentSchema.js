@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
+
+const resultSchema = new mongoose.Schema(
+  {
+    fractureDetected: { type: Boolean, default: false },
+    confidence: { type: Number, default: 0 },
+    region: { type: String, default: "" },
+    detections: { type: Array, default: [] },
+    annotatedImage: { type: String, default: "" },
+  },
+  { _id: false } 
+);
+
 const appointmentSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -33,7 +45,7 @@ const appointmentSchema = new mongoose.Schema({
     enum: ["Nam", "Nữ"],
   },
   appointment_date: {
-    type: Date, // ✅ đổi sang Date để dễ query
+    type: Date,
     required: [true, "Vui lòng chọn Ngày hẹn!"],
   },
   department: {
@@ -60,26 +72,21 @@ const appointmentSchema = new mongoose.Schema({
   },
   doctorId: {
     type: mongoose.Schema.ObjectId,
-    ref: "User", // ✅ thêm ref để populate bác sĩ
+    ref: "User",
     required: [true, "ID Bác sĩ không hợp lệ!"],
   },
   patientId: {
     type: mongoose.Schema.ObjectId,
-    ref: "User", // ✅ populate bệnh nhân
+    ref: "User",
     required: [true, "Vui lòng nhập ID Bệnh nhân!"],
   },
   status: {
     type: String,
-    enum: ["Pending", "Accepted", "Rejected"],
+    enum: ["Pending", "Accepted", "Rejected", "Confirmed", "Cancelled"],
     default: "Pending",
   },
-  result: {
-    fractureDetected: { type: Boolean, default: false },
-    confidence: { type: Number, default: 0 },
-    region: { type: String, default: "" },
-    detections: { type: Array, default: [] },
-    annotatedImage: { type: String, default: "" },
-  },
+  
+  result: resultSchema,
 });
 
 export const Appointment = mongoose.model("Appointment", appointmentSchema);

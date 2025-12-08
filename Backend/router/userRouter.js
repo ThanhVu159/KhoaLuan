@@ -10,7 +10,7 @@ import {
   getAdminDetails,
   logoutAdmin,
   addNewAdmin,
-  getUserProfile, // thêm hàm mới
+  getUserProfile,
 } from "../controller/userController.js";
 
 import {
@@ -30,17 +30,15 @@ import {
 const router = express.Router();
 
 // ---------------- Patient ----------------
-router.post("/patient/register", patientRegister);
+router.post("/register", patientRegister);
 router.post("/login", login);
-router.get("/patient/me", isPatientAuthenticated, getUserDetails);
-router.get("/patient/logout", isPatientAuthenticated, logoutPatient);
-
-// ✅ route mới để lấy hồ sơ bệnh nhân kèm lịch hẹn
-router.get("/me", isPatientAuthenticated, getUserProfile);
+router.get("/me", isPatientAuthenticated, getUserDetails); 
+router.get("/profile", isPatientAuthenticated, getUserProfile); 
+router.get("/logout", logoutPatient); 
 
 // ---------------- Admin ----------------
 router.get("/admin/me", isAdminAuthenticated, getAdminDetails);
-router.get("/admin/logout", isAdminAuthenticated, logoutAdmin);
+router.get("/admin/logout", logoutAdmin);
 router.post("/admin/addnew", isAdminAuthenticated, addNewAdmin);
 
 // ---------------- Doctors ----------------

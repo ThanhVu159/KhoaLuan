@@ -16,11 +16,12 @@ const departmentMap = {
   ophthalmology: "Mắt",
   gynecology: "Phụ sản",
   ent: "Tai – Mũi – Họng",
+  radiology: "Chẩn đoán hình ảnh",
 };
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
-  const [doctors, setDoctors] = useState([]); // ✅ thêm state
+  const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -67,7 +68,7 @@ const Dashboard = () => {
       );
       toast.success(data.message);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Update failed");
+      toast.error(error.response?.data?.message || "Cập nhật thất bại");
     }
   };
 
@@ -83,27 +84,26 @@ const Dashboard = () => {
         prevAppointments.filter((appointment) => appointment._id !== appointmentId)
       );
     } catch (error) {
-      toast.error(error.response?.data?.message || "Delete failed");
+      toast.error(error.response?.data?.message || "Xoá thất bại");
     }
   };
 
   const { isAuthenticated, admin, loading } = useContext(Context);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Đang tải...</p>;
   if (!isAuthenticated) return <Navigate to={"/login"} />;
 
   return (
     <section className="dashboard page">
       <div className="banner">
         <div className="firstBox">
-          <img src="/doc.png" alt="docImg" />
           <div className="content">
             <div>
-              <p>Hello ,</p>
+              <p>Xin chào,</p>
               <h5>
                 {admin && admin.firstName && admin.lastName
-                  ? `${admin.firstName} ${admin.lastName}`
-                  : "Admin"}
+                  ? `${admin.lastName} ${admin.firstName}`
+                  : "Quản trị viên"}
               </h5>
             </div>
             <p>
@@ -112,26 +112,26 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="secondBox">
-          <p>Total Appointments</p>
+          <p>Tổng số lịch hẹn</p>
           <h3>{appointments.length}</h3>
         </div>
         <div className="thirdBox">
-          <p>Registered Doctors</p>
-          <h3>{doctors.length}</h3> {/* ✅ hiển thị số lượng bác sĩ */}
+          <p>Số bác sĩ đã đăng ký</p>
+          <h3>{doctors.length}</h3>
         </div>
       </div>
 
       <div className="banner">
-        <h5>Appointments</h5>
+        <h5>Danh sách lịch hẹn</h5>
         <table>
           <thead>
             <tr>
-              <th>Patient</th>
-              <th>Date</th>
-              <th>Doctor</th>
-              <th>Department</th>
-              <th>Status</th>
-              <th>Visited</th>
+              <th>Bệnh nhân</th>
+              <th>Ngày hẹn</th>
+              <th>Bác sĩ</th>
+              <th>Khoa</th>
+              <th>Trạng thái</th>
+              <th>Đã khám</th>
               <th>Hành động</th>
             </tr>
           </thead>
@@ -170,13 +170,13 @@ const Dashboard = () => {
                       }
                     >
                       <option value="Pending" className="value-pending">
-                        Pending
+                        Chờ xử lý
                       </option>
                       <option value="Accepted" className="value-accepted">
-                        Accepted
+                        Đã chấp nhận
                       </option>
                       <option value="Rejected" className="value-rejected">
-                        Rejected
+                        Đã từ chối
                       </option>
                     </select>
                   </td>
@@ -200,7 +200,7 @@ const Dashboard = () => {
             ) : (
               <tr>
                 <td colSpan="7" style={{ textAlign: "center" }}>
-                  No Appointments Found!
+                  Không tìm thấy lịch hẹn nào!
                 </td>
               </tr>
             )}

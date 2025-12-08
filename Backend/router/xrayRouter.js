@@ -3,8 +3,8 @@ import {
   diagnoseXray,
   getDiagnosisHistory,
   getDiagnosisById,
-  deleteDiagnosis,
 } from "../controller/xrayController.js";
+
 import {
   isAdminAuthenticated,
   isPatientAuthenticated,
@@ -21,7 +21,6 @@ router.get("/history/:patientId", isPatientAuthenticated, getDiagnosisHistory);
 // API xem chi tiết chẩn đoán theo id
 router.get("/:id", isPatientAuthenticated, getDiagnosisById);
 
-// API xoá chẩn đoán (chỉ admin)
-router.delete("/:id", isAdminAuthenticated, deleteDiagnosis);
+
 
 export default router;

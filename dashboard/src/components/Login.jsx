@@ -14,7 +14,29 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("🔘 Login button clicked");
+
+
+    if (!email.trim()) {
+      toast.error("Vui lòng nhập email!");
+      return;
+    }
+    
+    if (!password) {
+      toast.error("Vui lòng nhập mật khẩu!");
+      return;
+    }
+    
+    if (!confirmPassword) {
+      toast.error("Vui lòng xác nhận mật khẩu!");
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      toast.error("Mật khẩu xác nhận không khớp!");
+      return;
+    }
+
+    console.log(" Đang đăng nhập...");
 
     try {
       const res = await axios.post(
@@ -26,30 +48,50 @@ const Login = () => {
         }
       );
 
-      console.log("✅ Login response:", res.data);
+      console.log(" Phản hồi đăng nhập:", res.data);
 
-      // lưu token vào localStorage
+   
       localStorage.setItem("token", res.data.token);
 
-      // cập nhật Context với user
+     
       setAdmin(res.data.user);
 
-      // đánh dấu đã đăng nhập
+
       setIsAuthenticated(true);
 
-      toast.success(res.data.message);
-      navigateTo("/");
 
-      // reset form
+      toast.success(res.data.message || "Đăng nhập thành công!");
+      
+
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      
+
+      navigateTo("/");
     } catch (error) {
-      console.error("❌ Login error:", error);
-      if (error.response && error.response.data) {
-        toast.error(error.response.data.message);
+      console.error(" Lỗi đăng nhập:", error);
+      
+
+      if (error.response) {
+        const status = error.response.status;
+        const message = error.response.data?.message;
+        
+        if (status === 404) {
+          toast.error("Email không tồn tại trong hệ thống!");
+        } else if (status === 401) {
+          toast.error("Mật khẩu không chính xác!");
+        } else if (status === 403) {
+          toast.error("Bạn không có quyền truy cập!");
+        } else if (message) {
+          toast.error(message);
+        } else {
+          toast.error("Đăng nhập thất bại. Vui lòng thử lại!");
+        }
+      } else if (error.request) {
+        toast.error("Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối!");
       } else {
-        toast.error("Login failed. Please try again.");
+        toast.error("Đã xảy ra lỗi. Vui lòng thử lại!");
       }
     }
   };
@@ -61,29 +103,32 @@ const Login = () => {
   return (
     <section className="container form-component">
       <img src="/logo.png" alt="logo" className="logo" />
-      <h1 className="form-title">WELCOME</h1>
-      <p>Only Admins Are Allowed To Access These Resources!</p>
+      <h1 className="form-title">Chào mừng</h1>
+      <p>Chỉ có Quản trị viên mới được phép truy cập!</p>
       <form onSubmit={handleLogin}>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Mật khẩu"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <input
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Xác nhận mật khẩu"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
         <div style={{ justifyContent: "center", alignItems: "center" }}>
-          <button type="submit">Login</button>
+          <button type="submit">Đăng Nhập</button>
         </div>
       </form>
     </section>

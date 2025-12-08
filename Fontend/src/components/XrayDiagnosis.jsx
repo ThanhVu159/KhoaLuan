@@ -9,11 +9,12 @@ const XrayDiagnosis = () => {
   const [loading, setLoading] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
   const [showAnnotations, setShowAnnotations] = useState(true);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // Nếu bạn vẫn muốn lấy lịch hẹn (không bắt buộc)
+
   useEffect(() => {
     const fetchAppointment = async () => {
       try {
@@ -36,7 +37,7 @@ const XrayDiagnosis = () => {
         if (myAppointments.length > 0) {
           setAppointmentId(myAppointments[0]._id);
         } else {
-          setAppointmentId(null); // không có cũng OK
+          setAppointmentId(null);
         }
       } catch (error) {
         console.error("Fetch appointment error:", error);
@@ -112,7 +113,6 @@ const XrayDiagnosis = () => {
     const formData = new FormData();
     formData.append("xrayImage", image);
 
-    // Chỉ gửi appointmentId nếu có (không bắt buộc)
     if (appointmentId) {
       formData.append("appointmentId", appointmentId);
     }
@@ -127,10 +127,19 @@ const XrayDiagnosis = () => {
         }
       );
 
-      setResult({
+      const diagnosisResult = {
         ...data.data,
         annotatedImageUrl: data.data.annotatedImage || data.data.imageUrl || preview,
-      });
+      };
+
+      setResult(diagnosisResult);
+
+      // Hiển thị thông báo thành công nếu có appointmentId
+      if (appointmentId && data.appointmentUpdated) {
+        setUpdateSuccess(true);
+        setTimeout(() => setUpdateSuccess(false), 5000);
+        console.log("✅ Backend đã tự động cập nhật kết quả vào hồ sơ");
+      }
     } catch (error) {
       console.error("Submit error:", error);
       const errorMsg = error.response?.data?.message || "Có lỗi xảy ra khi phân tích!";
@@ -144,6 +153,7 @@ const XrayDiagnosis = () => {
     setImage(null);
     setPreview(null);
     setResult(null);
+    setUpdateSuccess(false);
   };
 
   const downloadAnnotatedImage = () => {
@@ -161,6 +171,34 @@ const XrayDiagnosis = () => {
     }
   };
 
+  // Helper function để kiểm tra kết quả có dấu hiệu gãy xương
+  const hasFractureIndication = () => {
+    if (!result) return false;
+    
+    // Kiểm tra nếu result.result là object (có fractureDetected)
+    if (typeof result.result === 'object' && result.result !== null) {
+      return result.result.fractureDetected || result.totalDetections > 0;
+    }
+    
+    // Nếu là string
+    const resultText = String(result.result || "").toLowerCase();
+    return resultText.includes("gãy") || resultText.includes("phát hiện") || result.totalDetections > 0;
+  };
+
+  // Helper function để lấy text hiển thị kết quả
+  const getResultText = () => {
+    if (!result || !result.result) return "Không xác định";
+    
+    // Nếu result.result là object
+    if (typeof result.result === 'object' && result.result !== null) {
+      return result.result.fractureDetected 
+        ? "Phát hiện dấu hiệu gãy xương" 
+        : "Không phát hiện dấu hiệu gãy xương";
+    }
+    
+    // Nếu là string
+    return result.result;
+  };
 
   return (
     <div className="xray-diagnosis-page">
@@ -203,11 +241,11 @@ const XrayDiagnosis = () => {
 
               <div className="button-group">
                 <button onClick={handleSubmit} disabled={!image || loading} className="btn btn-primary">
-                  {loading ? "Đang phân tích..." : " Phân tích ngay"}
+                  {loading ? "Đang phân tích..." : "🔍 Phân tích ngay"}
                 </button>
                 {(image || result) && (
                   <button onClick={handleReset} disabled={loading} className="btn btn-secondary">
-                     Làm mới
+                    🔄 Làm mới
                   </button>
                 )}
               </div>
@@ -219,18 +257,40 @@ const XrayDiagnosis = () => {
             {result ? (
               <>
                 <div style={{ marginBottom: "20px" }}>
-                  <h2>Kết quả phân tích</h2>
+                  <h2>📊 Kết quả phân tích</h2>
                   
+                  {/* Thông báo cập nhật thành công */}
+                  {updateSuccess && (
+                    <div style={{
+                      background: "#d4edda",
+                      border: "1px solid #c3e6cb",
+                      color: "#155724",
+                      padding: "12px 16px",
+                      borderRadius: "8px",
+                      marginBottom: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px"
+                    }}>
+                      <span style={{ fontSize: "20px" }}>✅</span>
+                      <span>Đã cập nhật kết quả vào hồ sơ bệnh án thành công!</span>
+                    </div>
+                  )}
+
+                  <div className="ai-disclaimer">
+                    <p style={{ fontStyle: "italic", color: "#f54f4ff9", marginTop: "16px" }}>
+                      *Kết quả phân tích chỉ mang tính chất tham khảo từ hệ thống AI.
+                      Vui lòng trao đổi thêm với bác sĩ chuyên môn để có chẩn đoán chính xác.*
+                    </p>
+                  </div>
                 </div>
+
                 <div style={{ position: "relative" }}>
                   <img ref={imageRef} src={result.annotatedImageUrl} alt="X-ray" style={{ width: "100%" }} />
                   {showAnnotations && (
                     <canvas
                       ref={canvasRef}
                       style={{
-                        position: "absolute",
-                        top: 0,
-                        left:0,
                         position: "absolute",
                         top: 0,
                         left: 0,
@@ -244,18 +304,14 @@ const XrayDiagnosis = () => {
 
                 {/* Kết quả chi tiết */}
                 <div className="result-card">
-                  <h2> Kết Quả Chẩn Đoán</h2>
+                  <h2>📋 Kết Quả Chẩn Đoán</h2>
 
                   <div className="result-item">
                     <span className="result-label">Kết quả:</span>
                     <span
-                      className={`result-value ${
-                        result.result.includes("gãy") || result.result.includes("Phát hiện")
-                          ? "positive"
-                          : "negative"
-                      }`}
+                      className={`result-value ${hasFractureIndication() ? "positive" : "negative"}`}
                     >
-                      {result.result}
+                      {getResultText()}
                     </span>
                   </div>
 
@@ -273,9 +329,9 @@ const XrayDiagnosis = () => {
                     </div>
                   )}
 
-                  {(result.result?.toLowerCase().includes("gãy") || result.totalDetections > 0) && (
+                  {hasFractureIndication() && (
                     <div className="doctor-warning">
-                      <div className="doctor-warning-icon"></div>
+                      <div className="doctor-warning-icon">⚠️</div>
                       <div className="doctor-warning-text">
                         <strong>Nghi ngờ có dấu hiệu gãy xương!</strong>
                         <p>
@@ -292,7 +348,7 @@ const XrayDiagnosis = () => {
 
                   {result.detections && result.detections.length > 0 && (
                     <div className="detections-list">
-                      <h3> Chi tiết các vùng phát hiện:</h3>
+                      <h3>🔍 Chi tiết các vùng phát hiện:</h3>
                       {result.detections.map((det, idx) => (
                         <div key={idx} className="detection-item">
                           <div style={{ flex: 1 }}>
@@ -337,17 +393,17 @@ const XrayDiagnosis = () => {
         {/* Features Section */}
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon"></div>
+            <div className="feature-icon">🎯</div>
             <h3>Chính Xác Cao</h3>
             <p>Sử dụng mô hình AI được huấn luyện trên hàng nghìn ảnh X-quang</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon"></div>
+            <div className="feature-icon">⚡</div>
             <h3>Nhanh Chóng</h3>
             <p>Kết quả chẩn đoán trong vài giây, tiết kiệm thời gian chờ đợi</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon"></div>
+            <div className="feature-icon">🔒</div>
             <h3>Bảo Mật</h3>
             <p>Dữ liệu của bạn được mã hóa và bảo mật tuyệt đối</p>
           </div>
@@ -358,4 +414,3 @@ const XrayDiagnosis = () => {
 };
 
 export default XrayDiagnosis;
-                        

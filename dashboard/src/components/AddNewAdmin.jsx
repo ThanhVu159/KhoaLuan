@@ -25,6 +25,37 @@ const AddNewAdmin = () => {
 
   const handleAddNewAdmin = async (e) => {
     e.preventDefault();
+
+    // Validation
+    if (!formData.lastName.trim()) {
+      toast.error("Vui lòng nhập họ!");
+      return;
+    }
+    if (!formData.firstName.trim()) {
+      toast.error("Vui lòng nhập tên!");
+      return;
+    }
+    if (!formData.email.trim()) {
+      toast.error("Vui lòng nhập email!");
+      return;
+    }
+    if (!formData.phone.trim()) {
+      toast.error("Vui lòng nhập số điện thoại!");
+      return;
+    }
+    if (!formData.dob) {
+      toast.error("Vui lòng chọn ngày sinh!");
+      return;
+    }
+    if (!formData.gender) {
+      toast.error("Vui lòng chọn giới tính!");
+      return;
+    }
+    if (!formData.password || formData.password.length < 8) {
+      toast.error("Mật khẩu phải có ít nhất 8 ký tự!");
+      return;
+    }
+
     try {
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/user/admin/addnew",
@@ -61,17 +92,19 @@ const AddNewAdmin = () => {
           <div>
             <input
               type="text"
-              name="firstName"
+              name="lastName"
               placeholder="Họ"
-              value={formData.firstName}
+              value={formData.lastName}
               onChange={handleChange}
+              required
             />
             <input
               type="text"
-              name="lastName"
+              name="firstName"
               placeholder="Tên"
-              value={formData.lastName}
+              value={formData.firstName}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -82,13 +115,17 @@ const AddNewAdmin = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             <input
-              type="number"
+              type="tel"
               name="phone"
               placeholder="Số điện thoại"
               value={formData.phone}
               onChange={handleChange}
+              pattern="[0-9]{10,11}"
+              title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)"
+              required
             />
           </div>
 
@@ -99,22 +136,30 @@ const AddNewAdmin = () => {
               placeholder="Ngày sinh"
               value={formData.dob}
               onChange={handleChange}
+              required
             />
           </div>
 
           <div>
-            <select name="gender" value={formData.gender} onChange={handleChange}>
-  <option value="">Chọn giới tính</option>
-  <option value="Male">Nam</option>
-  <option value="Female">Nữ</option>
-</select>
+            <select 
+              name="gender" 
+              value={formData.gender} 
+              onChange={handleChange}
+              required
+            >
+              <option value="">Chọn giới tính</option>
+              <option value="Male">Nam</option>
+              <option value="Female">Nữ</option>
+            </select>
 
             <input
               type="password"
               name="password"
-              placeholder="Mật khẩu"
+              placeholder="Mật khẩu (tối thiểu 8 ký tự)"
               value={formData.password}
               onChange={handleChange}
+              minLength={8}
+              required
             />
           </div>
 

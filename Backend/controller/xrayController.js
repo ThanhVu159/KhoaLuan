@@ -75,29 +75,55 @@ const normalizeDetections = (detections = []) =>
   });
 
 const updateAppointment = async (id, prediction, detections, annotatedImage, fallbackUrl) => {
-  if (!id) return;
+  if (!id) return false;
 
-  const fracture =
-    /fracture/i.test(prediction.result) ||
-    /gãy/i.test(prediction.result) ||
-    detections.length > 0;
+  try {
+    const fracture =
+      (detections && detections.length > 0) ||
+      (/fracture/i.test(prediction.result || "")) ||
+      (/gãy/i.test(prediction.result || ""));
 
-  await Appointment.findByIdAndUpdate(id, {
-    $set: {
+    // Tạo region từ detections
+    const region = detections && detections.length > 0
+      ? detections.map(d => d.class).join(", ")
+      : prediction.details || "Chưa xác định";
+
+    console.log("=== DEBUG updateAppointment ===");
+    console.log("Appointment ID:", id);
+    console.log("Prediction.result:", prediction.result);
+    console.log("Detections:", detections);
+    console.log("FractureDetected set to:", fracture);
+    console.log("Region:", region);
+
+    const updateData = {
       result: {
         fractureDetected: fracture,
-        confidence: Number((prediction.confidence || 0).toFixed(2)),
-        region: prediction.details || "",
+        confidence: Number((prediction.confidence || 0).toFixed(1)),
+        region: region,
+        totalDetections: detections.length,
+        details: prediction.details || "",
         detections,
-        annotatedImage: annotatedImage || fallbackUrl,
+        analyzedAt: new Date(),
+        imageUrl: annotatedImage || fallbackUrl,
       },
-    },
-  });
+    };
+
+    console.log("Update data:", JSON.stringify(updateData, null, 2));
+
+    await Appointment.findByIdAndUpdate(id, { $set: updateData });
+    
+    console.log("✅ Appointment updated successfully!");
+    return true;
+  } catch (error) {
+    console.error("❌ Error updating appointment:", error);
+    return false;
+  }
 };
 
 export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
   const appointmentId = req.body?.appointmentId || null;
   const patientId = req.userId;
+  
   if (!patientId) {
     return next(new ErrorHandler("Thiếu thông tin đăng nhập!", 400));
   }
@@ -111,10 +137,6 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
 
   try {
     const formData = new FormData();
-    console.log("Temp file path:", xrayFile.tempFilePath);
-    console.log("File exists:", fs.existsSync(xrayFile.tempFilePath));
-    console.log("File size:", xrayFile.size);
-
     formData.append("file", fs.createReadStream(xrayFile.tempFilePath));
 
     let prediction;
@@ -124,9 +146,9 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
         timeout: 120000,
       });
       prediction = aiRes.data;
-      console.log("AI service response:", prediction);
+      console.log("AI Service Response:", prediction);
     } catch (err) {
-      console.error("Lỗi gọi AI service:", err.response?.data || err.message);
+      console.error("AI Service Error:", err.message);
       throw new ErrorHandler("Không thể kết nối AI service!", 500);
     }
 
@@ -141,7 +163,6 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
       try {
         const base64Data = prediction.annotated_image.split(",")[1];
         const tmp = path.join(uploadsDir, `tmp_ann_${Date.now()}.png`);
-
         fs.writeFileSync(tmp, Buffer.from(base64Data, "base64"));
 
         const annUp = await cloudinary.uploader.upload(tmp, {
@@ -159,49 +180,62 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
 
     const detections = normalizeDetections(prediction.detections);
 
+    const fracture =
+      (detections && detections.length > 0) ||
+      (/fracture/i.test(prediction.result || "")) ||
+      (/gãy/i.test(prediction.result || ""));
+
     const diagnosis = await Diagnosis.create({
       patientId,
       xrayImage: { public_id: uploaded.public_id, url: uploaded.secure_url },
       annotatedImage: annotatedUrl ? { public_id: annotatedPublicId, url: annotatedUrl } : null,
       diagnosis: {
-        result: prediction.result || "Không xác định",
-        confidence: Number((prediction.confidence || 0).toFixed(1)),
-        details: prediction.details || "",
-        detections,
-        totalDetections: detections.length,
+        result: {
+          fractureDetected: fracture,
+          confidence: Number((prediction.confidence || 0).toFixed(1)),
+          details: prediction.details || "",
+          detections,
+          totalDetections: detections.length,
+        },
       },
       doctorNote: "",
       status: "pending",
     });
 
+    // Cập nhật appointment nếu có
+    let appointmentUpdated = false;
     if (appointmentId) {
       const appointment = await Appointment.findById(appointmentId);
-      if (appointment && appointment.status === "Pending") {
-        await updateAppointment(
+      if (appointment) {
+        appointmentUpdated = await updateAppointment(
           appointmentId,
           prediction,
           detections,
           annotatedUrl,
           uploaded.secure_url
         );
+        console.log("Appointment update status:", appointmentUpdated);
       } else {
-        console.warn("Không cập nhật lịch hẹn: không tồn tại hoặc không ở trạng thái Pending.");
+        console.warn("⚠️ Appointment not found:", appointmentId);
       }
     }
 
     if (fs.existsSync(xrayFile.tempFilePath)) fs.unlinkSync(xrayFile.tempFilePath);
 
+    // Trả về response với đầy đủ thông tin
     res.status(200).json({
       success: true,
       message: "Phân tích X-ray thành công!",
+      appointmentUpdated, // ✅ Thêm flag này
       data: {
         diagnosisId: diagnosis._id,
         imageUrl: uploaded.secure_url,
         annotatedImage: annotatedUrl || uploaded.secure_url,
-        result: prediction.result,
-        confidence: prediction.confidence,
-        detections,
-        totalDetections: detections.length,
+        result: diagnosis.diagnosis.result, // ✅ Trả về cấu trúc đầy đủ
+        confidence: diagnosis.diagnosis.result.confidence,
+        details: diagnosis.diagnosis.result.details,
+        detections: diagnosis.diagnosis.result.detections,
+        totalDetections: diagnosis.diagnosis.result.totalDetections,
         timestamp: diagnosis.createdAt,
       },
     });
@@ -224,24 +258,4 @@ export const getDiagnosisById = catchAsyncErrors(async (req, res, next) => {
   const item = await Diagnosis.findById(req.params.id);
   if (!item) return next(new ErrorHandler("Không tìm thấy kết quả chẩn đoán!", 404));
   res.json({ success: true, diagnosis: item });
-});
-
-export const deleteDiagnosis = catchAsyncErrors(async (req, res, next) => {
-  const doc = await Diagnosis.findById(req.params.id);
-  if (!doc) return next(new ErrorHandler("Không tìm thấy!", 404));
-
-  const destroy = async (id) => {
-    if (id) {
-      try {
-        await cloudinary.uploader.destroy(id);
-      } catch (_) {}
-    }
-  };
-
-  await destroy(doc.xrayImage?.public_id);
-  await destroy(doc.annotatedImage?.public_id);
-
-  await doc.deleteOne();
-
-  res.json({ success: true, message: "Đã xóa kết quả chẩn đoán!" });
 });

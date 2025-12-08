@@ -14,6 +14,13 @@ const departmentMap = {
   ophthalmology: "Mắt",
   gynecology: "Phụ sản",
   ent: "Tai – Mũi – Họng",
+  radiology: "Chẩn đoán hình ảnh",
+};
+
+const genderMap = {
+  male: "Nam",
+  female: "Nữ",
+  other: "Khác",
 };
 
 const Doctors = () => {
@@ -25,7 +32,7 @@ const Doctors = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/doctor", // ✅ lấy danh sách bác sĩ
+          "http://localhost:4000/api/v1/doctor",
           { withCredentials: true }
         );
         setDoctors(data.doctors);
@@ -41,7 +48,7 @@ const Doctors = () => {
     setDeletingId(id);
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/v1/doctor/${id}`, // ✅ sửa đúng endpoint
+        `http://localhost:4000/api/v1/doctor/${id}`,
         { withCredentials: true }
       );
       toast.success(data.message);
@@ -64,8 +71,8 @@ const Doctors = () => {
         {doctors && doctors.length > 0 ? (
           doctors.map((element) => (
             <div className="card" key={element._id}>
-              <img src={element.docAvatar?.url} alt="doctor avatar" />
-              <h4>{`${element.firstName} ${element.lastName}`}</h4>
+              <img src={element.docAvatar?.url} alt="Ảnh đại diện bác sĩ" />
+              <h4>{`${element.lastName} ${element.firstName}`}</h4>
               <div className="details">
                 <p>Email: <span>{element.email}</span></p>
                 <p>Số điện thoại: <span>{element.phone}</span></p>
@@ -77,7 +84,12 @@ const Doctors = () => {
                       element.doctorDepartment}
                   </span>
                 </p>
-                <p>Giới tính: <span>{element.gender}</span></p>
+                <p>
+                  Giới tính:{" "}
+                  <span>
+                    {genderMap[element.gender?.toLowerCase()] || element.gender}
+                  </span>
+                </p>
               </div>
               <button
                 className="btn btn-danger"

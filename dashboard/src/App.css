@@ -110,7 +110,7 @@ body {
   border-radius: 8px;
   font-size: 24px;
   margin-bottom: 30px;
-  background: linear-gradient(140deg, #9083d5, #271776ca);
+  background: linear-gradient(140deg, #bebcc8, #271776ca);
 }
 .form-component .wrapper {
   display: flex;
@@ -170,7 +170,7 @@ body {
   display: flex;
   align-items: center;
   border-radius: 20px;
-  background: #b5b5ff;
+  background: #c5c5dbf2;
   padding: 20px 20px 0 10px;
 }
 .dashboard .banner:first-child .firstBox img {
@@ -197,7 +197,7 @@ body {
   font-size: 16px;
 }
 .dashboard .banner:first-child .secondBox {
-  background: #3939d9f2;
+  background: #8c8ce9f2;
   color: #fff;
 }
 .dashboard .banner:first-child .thirdBox {
@@ -379,7 +379,7 @@ body {
 
 @media (max-width: 1208px) {
   .sidebar {
-    background: #6565e3f2;
+    background: #4d37a5f2;
     left: -100%;
     transition: 0.3s;
   }
@@ -393,7 +393,7 @@ body {
     top: 30px;
     left: 40px;
     font-size: 34px;
-    background: #6464cff2;
+    background: #020216f2;
     color: #fff;
     height: 40px;
     width: 40px;

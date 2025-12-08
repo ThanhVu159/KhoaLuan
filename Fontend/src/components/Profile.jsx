@@ -13,22 +13,45 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        // Gọi API profile để lấy thông tin user + appointments đầy đủ
         const { data } = await axios.get(
-  "http://localhost:4000/api/v1/user/me",
-  { withCredentials: true }
-);
+          "http://localhost:4000/api/v1/user/profile",
+          { withCredentials: true }
+        );
 
-        console.log("Dữ liệu hồ sơ:", data); // ✅ kiểm tra dữ liệu trả về
+        console.log("Dữ liệu hồ sơ:", data);
 
-        // Nếu backend trả về { user: {...} }
         if (data.user) {
           setProfileUser(data.user);
-          setAppointments(data.user.appointments || []);
+          
+          // Nếu có appointments từ populate
+          if (data.user.appointments && Array.isArray(data.user.appointments)) {
+            setAppointments(data.user.appointments);
+          } else {
+            // Fallback: lấy từ API appointments
+            fetchAppointments();
+          }
         } else {
           toast.error("Không thể lấy hồ sơ");
         }
       } catch (error) {
+        console.error("Error fetching profile:", error);
         toast.error("Không thể lấy hồ sơ");
+      }
+    };
+
+    const fetchAppointments = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:4000/api/v1/appointment/getall",
+          { withCredentials: true }
+        );
+        
+        if (data.appointments) {
+          setAppointments(data.appointments);
+        }
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
       }
     };
 
@@ -87,8 +110,48 @@ const Profile = () => {
     return mapping[dept] || dept;
   };
 
+  const renderAIResult = (result) => {
+    if (!result) {
+      return (
+        <div className="ai-result-container">
+          <span className="ai-result pending">Chưa có kết quả</span>
+        </div>
+      );
+    }
+
+    if (typeof result === "object") {
+      return (
+        <div className="ai-result-simple">
+          {result.fractureDetected ? (
+            <>
+              <div className="result-status danger-text">Phát hiện gãy xương</div>
+              <div className="result-detail-item">Độ tin cậy: <strong>{result.confidence}%</strong></div>
+              {result.region && result.region !== "Chưa xác định" && (
+                <div className="result-detail-item">Vùng: <strong>{result.region}</strong></div>
+              )}
+              {result.totalDetections > 0 && (
+                <div className="result-detail-item">Số vùng: <strong>{result.totalDetections}</strong></div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="result-status success-text">Không phát hiện gãy xương</div>
+              <div className="result-detail-item">Độ tin cậy: <strong>{result.confidence}%</strong></div>
+            </>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div className="ai-result-container">
+        <span className="ai-result normal">{result}</span>
+      </div>
+    );
+  };
+
   if (!isAuthenticated) return <Navigate to="/login" />;
-  if (!profileUser) return <p>Không thể lấy hồ sơ</p>; // ✅ thêm kiểm tra
+  if (!profileUser) return <p>Đang tải hồ sơ...</p>;
 
   return (
     <section className="page profile">
@@ -126,37 +189,24 @@ const Profile = () => {
             <tbody>
               {appointments.map((item) => (
                 <tr key={item._id}>
-                  <td>{item.appointment_date?.substring(0, 16)}</td>
+                  <td>{item.appointment_date?.substring(0, 16).replace('T', ' ')}</td>
                   <td>{item.doctor?.firstName} {item.doctor?.lastName}</td>
                   <td>{translateDepartment(item.department)}</td>
-                  <td>{translateStatus(item.status)}</td>
-                  <td>{item.hasVisited ? "✓" : "✗"}</td>
                   <td>
-                    {item.result ? (
-                      item.result.fractureDetected ? (
-                        <span className="ai-result success">
-                          {item.result.region}
-                        </span>
-                      ) : (
-                        <span className="ai-result normal">
-                          Không phát hiện gãy xương
-                        </span>
-                      )
-                    ) : (
-                      <span className="ai-result pending">Đang xử lý kết quả AI</span>
-                    )}
+                    <span className={`status-badge status-${item.status?.toLowerCase()}`}>
+                      {translateStatus(item.status)}
+                    </span>
                   </td>
+                  <td>{item.hasVisited ? "✓" : "✗"}</td>
+                  <td>{renderAIResult(item.result)}</td>
                   <td>
-                    {item.status === "Pending" ? (
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleCancelAppointment(item._id)}
-                      >
-                        Huỷ
-                      </button>
-                    ) : (
-                      "-"
-                    )}
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleCancelAppointment(item._id)}
+                      title="Huỷ lịch hẹn"
+                    >
+                      Huỷ
+                    </button>
                   </td>
                 </tr>
               ))}

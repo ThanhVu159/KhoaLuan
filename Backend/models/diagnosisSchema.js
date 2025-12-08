@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+const resultSchema = new mongoose.Schema(
+  {
+    fractureDetected: { type: Boolean, default: false },
+    confidence: { type: Number, default: 0 },
+    details: { type: String, default: "" },
+    detections: { type: Array, default: [] },
+    totalDetections: { type: Number, default: 0 },
+  },
+  { _id: false }
+);
+
 const diagnosisSchema = new mongoose.Schema({
   patientId: {
     type: mongoose.Schema.ObjectId,
@@ -21,11 +32,7 @@ const diagnosisSchema = new mongoose.Schema({
   },
 
   diagnosis: {
-    result: { type: String, required: true },
-    confidence: { type: Number, required: true, min: 0, max: 100 },
-    details: { type: String, default: "" },
-    detections: { type: Array, default: [] },
-    totalDetections: { type: Number, default: 0 },
+    result: resultSchema, // ✅ sửa từ String thành Object
   },
 
   doctorNote: { type: String, default: "" },
