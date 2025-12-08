@@ -1,0 +1,31 @@
+{
+	"_id": {
+		"$oid": "693454b53459771ffbd03099"
+	},
+	"firstName": "Dương",
+	"lastName": "Thanh Vũ",
+	"email": "thanhvu@gmail.com",
+	"phone": "1231231231",
+	"dob": {
+		"$date": "2004-09-15T00:00:00Z"
+	},
+	"gender": "Nam",
+	"appointment_date": {
+		"$date": "2025-12-20T00:00:00Z"
+	},
+	"department": "Dermatology",
+	"doctor": {
+		"firstName": "Thuỳ",
+		"lastName": "Trần Phương"
+	},
+	"hasVisited": false,
+	"address": "HCm",
+	"doctorId": {
+		"$oid": "69344f666c4cca64c1e7c19c"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"status": "Pending",
+	"__v": 0
+}

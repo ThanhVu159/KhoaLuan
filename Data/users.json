@@ -1,0 +1,206 @@
+{
+	"_id": {
+		"$oid": "68d0321692f9e61c485955b3"
+	},
+	"firstName": "Nguyen Van",
+	"lastName": "An",
+	"email": "admin@gmail.com",
+	"phone": "198756897",
+	"dob": {
+		"$date": "1990-12-02T00:00:00Z"
+	},
+	"gender": "Nam",
+	"password": "$2b$10$NVk.17Zyu34m2xvF90i1PuX5Ik.aqFKiz89ZHg05NqYP6C.VwQCFu",
+	"role": "Admin",
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"firstName": "Thanh",
+	"lastName": "Vũ",
+	"email": "newuser@gmail.com",
+	"phone": "123123123",
+	"dob": {
+		"$date": {
+			"$numberLong": "-23314521600000"
+		}
+	},
+	"gender": "Nam",
+	"password": "$2b$10$1vJC.zhOmBWurTRZKFEbr.SqezlC/KaTmVsniY9/UhJcpBqPB/LLO",
+	"role": "Patient",
+	"__v": 0,
+	"appointments": [
+		{
+			"$oid": "693454b53459771ffbd03099"
+		}
+	]
+}
+{
+	"_id": {
+		"$oid": "69307034bd761e0af5762b11"
+	},
+	"firstName": "anzz",
+	"lastName": "vũu",
+	"email": "thanhvukh04@gmail.com",
+	"phone": "0886070208",
+	"dob": {
+		"$date": {
+			"$numberLong": "-58279651200000"
+		}
+	},
+	"gender": "Male",
+	"password": "$2b$10$FxOoBdRsrKzL9s3mMmUO/upNil/ZF9bx8yb.e8RBKF4.zpeTv1hH.",
+	"role": "Admin",
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6933dd2ffd5612139f006c60"
+	},
+	"firstName": "Thanh Vũ",
+	"lastName": "Dương",
+	"email": "admin1@gmail.com",
+	"phone": "0886070208",
+	"dob": {
+		"$date": "2004-09-12T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$1t0XE9Ng2s2ruyDJ/VkFMuOC68Iin1/YvWuDqomNan4KieJhsF2B2",
+	"role": "Admin",
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69344f1c6c4cca64c1e7c194"
+	},
+	"firstName": "Hùng",
+	"lastName": "Trần Văn",
+	"email": "vana@gmail.com",
+	"phone": "12312312312",
+	"dob": {
+		"$date": "1990-03-12T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$uz2l0anbjNZlujfbZD5ZbuDrFbgAS7njbxGtGzt8RhzrJ6l/ZcFe6",
+	"role": "Doctor",
+	"doctorDepartment": "Pediatrics",
+	"docAvatar": {
+		"public_id": "doctors/xktlfht7rsewt5vidap1",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765035802/doctors/xktlfht7rsewt5vidap1.png"
+	},
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69344f666c4cca64c1e7c19c"
+	},
+	"firstName": "Thuỳ",
+	"lastName": "Trần Phương",
+	"email": "thuy@gmail.com",
+	"phone": "1231234567",
+	"dob": {
+		"$date": "1995-04-19T00:00:00Z"
+	},
+	"gender": "Female",
+	"password": "$2b$10$S1ZraXKJOZdpBPiFVvLt6eEs3M7eLSdkLF9ekFlQUElshv9P5WwhS",
+	"role": "Doctor",
+	"doctorDepartment": "Dermatology",
+	"docAvatar": {
+		"public_id": "doctors/z5noydcor7gajciwiizr",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765035878/doctors/z5noydcor7gajciwiizr.jpg"
+	},
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69344feb6c4cca64c1e7c1a4"
+	},
+	"firstName": "Bình",
+	"lastName": "Nguyễn Văn",
+	"email": "binh@gmail.com",
+	"phone": "1234567899",
+	"dob": {
+		"$date": "1997-05-11T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$rLZlwZmAajg1iBdy4mVX1e8MMyuqAUxwLtejM1wnldG1czA7JjgWK",
+	"role": "Doctor",
+	"doctorDepartment": "Cardiology",
+	"docAvatar": {
+		"public_id": "doctors/yyzzkddyoxj0gwjuil4h",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765036011/doctors/yyzzkddyoxj0gwjuil4h.jpg"
+	},
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6934507b6c4cca64c1e7c1ac"
+	},
+	"firstName": "Phi",
+	"lastName": "Nguyễn Thành",
+	"email": "phi@gmail.com",
+	"phone": "5671239873",
+	"dob": {
+		"$date": "1990-06-05T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$qQXuc9VnpjFN9dhb5ojUbufldj0gAhcVOQQwcXKj.e5C1yKs.aZia",
+	"role": "Doctor",
+	"doctorDepartment": "Radiology",
+	"docAvatar": {
+		"public_id": "doctors/jr5yro34ptijouxvrrke",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765036154/doctors/jr5yro34ptijouxvrrke.jpg"
+	},
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "693452bccdca10f9f5583bbf"
+	},
+	"firstName": "Thanh",
+	"lastName": "Trần Văn ",
+	"email": "thanh@gmail.com",
+	"phone": "1231231232",
+	"dob": {
+		"$date": "1995-07-16T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$8jbogEtJoEsprBPA/SXlQePvTnRVzWMBtZRpdJjfoziNZ.fdql4ki",
+	"role": "Doctor",
+	"doctorDepartment": "Ophthalmology",
+	"docAvatar": {
+		"public_id": "doctors/zkitmf4clpurgexw8ls6",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765036731/doctors/zkitmf4clpurgexw8ls6.jpg"
+	},
+	"appointments": [],
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "693454683459771ffbd03088"
+	},
+	"firstName": "Thành",
+	"lastName": "Trần Nguyễn",
+	"email": "nthanh@gmail.com",
+	"phone": "1231234567",
+	"dob": {
+		"$date": "1993-05-04T00:00:00Z"
+	},
+	"gender": "Male",
+	"password": "$2b$10$.VtOqfwaWoiiZ52lBatCyeAVPJ0PUep8xWaDEZHP0RsvgMBraU7We",
+	"role": "Doctor",
+	"doctorDepartment": "Gynecology",
+	"docAvatar": {
+		"public_id": "doctors/alrbiweyxfi6xfhxdq7z",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1765037159/doctors/alrbiweyxfi6xfhxdq7z.jpg"
+	},
+	"appointments": [],
+	"__v": 0
+}

@@ -1,0 +1,2617 @@
+{
+	"_id": {
+		"$oid": "69274de576cdc3e2a4fa339c"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "atcap0bsikirlgigplxy",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764183524/atcap0bsikirlgigplxy.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 71.7,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T18:58:45.322Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69274df876cdc3e2a4fa339f"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "gi3kpcw6rdhlviotpa8r",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764183543/gi3kpcw6rdhlviotpa8r.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 90.1,
+		"details": "Phát hiện 1 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T18:59:04.045Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69274e7176cdc3e2a4fa33a7"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "z006oc8bxx3vk53hufos",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764183664/z006oc8bxx3vk53hufos.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 94.4,
+		"details": "Phát hiện 1 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T19:01:05.858Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69274ecc76cdc3e2a4fa33af"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "ny4bsceqbjmkfcn7dqhv",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764183754/ny4bsceqbjmkfcn7dqhv.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 71.7,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T19:02:36.156Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69274ee276cdc3e2a4fa33bc"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "iflmytdcf72ms5a4hgaj",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764183776/iflmytdcf72ms5a4hgaj.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.1,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T19:02:58.207Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69274fd376cdc3e2a4fa33c4"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "adhwzwgn4i7tjshk7pdl",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764184018/adhwzwgn4i7tjshk7pdl.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 68.1,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-26T19:06:59.523Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6927fe1125ffab1dba010567"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "ptbrxun6zws62o2gegc6",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764228624/ptbrxun6zws62o2gegc6.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.5,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T07:30:25.299Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6927fe2a25ffab1dba010572"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "tyscvy3ptwdvqyntgxpk",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764228648/tyscvy3ptwdvqyntgxpk.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 94.4,
+		"details": "Phát hiện 1 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T07:30:50.552Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6927ffbf28b528a5b45bacb6"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "d3nxxqkk5lzuwqzxrfet",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764229054/d3nxxqkk5lzuwqzxrfet.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 68.1,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T07:37:35.847Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692801c0f0f4752094d70c37"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jeq6p8znqzxxngatq4ei",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764229567/jeq6p8znqzxxngatq4ei.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 68.1,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T07:46:08.951Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692801e0f0f4752094d70c41"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "no1etqowbr7jcbauhrvc",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764229599/no1etqowbr7jcbauhrvc.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.5,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T07:46:40.564Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69280b5b35859ebb148c357d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "uvhqgjxrvrlumrcwlh9r",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764232026/uvhqgjxrvrlumrcwlh9r.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.5,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T08:27:07.379Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69280be635859ebb148c35a2"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "dwzjwcn109mvw4jj78uq",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764232165/dwzjwcn109mvw4jj78uq.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.5,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T08:29:26.748Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69280c45975642de19c3a71e"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "t5japp75sv27yg8jzxkl",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764232260/t5japp75sv27yg8jzxkl.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 85.5,
+		"details": "Phát hiện 2 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-11-27T08:31:01.795Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692d49290f11e1f5e6c55b5d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "fqnwxxkmqolfuje1voct",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764575528/fqnwxxkmqolfuje1voct.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện xương gãy",
+		"confidence": 79.4,
+		"details": "Phát hiện 1 vùng bất thường"
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"annotatedImage": null,
+	"createdAt": {
+		"$date": "2025-12-01T07:52:09.793Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f53b9c8318a8a1b08bd41"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "nkr2l7nugnxpfmalaqac",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709301/nkr2l7nugnxpfmalaqac.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "mmb9grsckqpwnzaydbxd",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709303/mmb9grsckqpwnzaydbxd.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 48.7,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 48.7,
+				"box": {
+					"x": 95,
+					"y": 368,
+					"x2": 288,
+					"y2": 526,
+					"width": 193,
+					"height": 158
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:01:45.884Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f53dfc8318a8a1b08bd45"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "gkiybuuyhntgwi6mqspi",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709336/gkiybuuyhntgwi6mqspi.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "wpoc7jzr9nqf76bc9ilx",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709339/wpoc7jzr9nqf76bc9ilx.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 53.6,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 53.6,
+				"box": {
+					"x": 191,
+					"y": 296,
+					"x2": 319,
+					"y2": 539,
+					"width": 128,
+					"height": 243
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 43.5,
+				"box": {
+					"x": 129,
+					"y": 214,
+					"x2": 322,
+					"y2": 636,
+					"width": 193,
+					"height": 422
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:02:23.924Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54a9c8318a8a1b08bd49"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "tlplec8vuwhzb18ctuoc",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709543/tlplec8vuwhzb18ctuoc.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "hbqvcefocgfxn7d0yx1j",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709544/hbqvcefocgfxn7d0yx1j.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 53.6,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 53.6,
+				"box": {
+					"x": 191,
+					"y": 296,
+					"x2": 319,
+					"y2": 539,
+					"width": 128,
+					"height": 243
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 43.5,
+				"box": {
+					"x": 129,
+					"y": 214,
+					"x2": 322,
+					"y2": 636,
+					"width": 193,
+					"height": 422
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:05:45.574Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54b3c8318a8a1b08bd4d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "iendc0nbvhkjq4q9kknf",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709553/iendc0nbvhkjq4q9kknf.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "nm7i2wrf0tjtha57swr0",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709554/nm7i2wrf0tjtha57swr0.jpg"
+	},
+	"diagnosis": {
+		"result": "Xương bình thường",
+		"confidence": 0,
+		"details": "Không phát hiện dấu hiệu xương gãy",
+		"detections": [],
+		"totalDetections": 0
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:05:55.856Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54c3c8318a8a1b08bd51"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "otxztexdhwp8honuufdv",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709568/otxztexdhwp8honuufdv.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "iunao2wvibddrnuw9u1x",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709570/iunao2wvibddrnuw9u1x.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 63.3,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 63.3,
+				"box": {
+					"x": 191,
+					"y": 196,
+					"x2": 459,
+					"y2": 488,
+					"width": 268,
+					"height": 292
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:06:11.137Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54d1c8318a8a1b08bd55"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "kseb16nbw5ypsbmr43m9",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709583/kseb16nbw5ypsbmr43m9.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "tug0z46jlxrmh27myvqn",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709584/tug0z46jlxrmh27myvqn.jpg"
+	},
+	"diagnosis": {
+		"result": "Xương bình thường",
+		"confidence": 0,
+		"details": "Không phát hiện dấu hiệu xương gãy",
+		"detections": [],
+		"totalDetections": 0
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:06:25.178Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54dcc8318a8a1b08bd59"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jjni51gdgnolhiogm7ce",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709594/jjni51gdgnolhiogm7ce.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "unicmxx0fh7blxyefppk",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709595/unicmxx0fh7blxyefppk.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 63.1,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 63.1,
+				"box": {
+					"x": 249,
+					"y": 398,
+					"x2": 392,
+					"y2": 536,
+					"width": 143,
+					"height": 138
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:06:36.38Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f54efc8318a8a1b08bd5d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "lhqxyojop5jbb39jkch7",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709613/lhqxyojop5jbb39jkch7.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "mgyzdq1cko5cgpaoruci",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764709614/mgyzdq1cko5cgpaoruci.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 45.2,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 45.2,
+				"box": {
+					"x": 219,
+					"y": 114,
+					"x2": 402,
+					"y2": 333,
+					"width": 183,
+					"height": 219
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 18.4,
+				"box": {
+					"x": 398,
+					"y": 0,
+					"x2": 563,
+					"y2": 121,
+					"width": 165,
+					"height": 121
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:06:55.986Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "692f6074bbd342e972bd3116"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "eooidikbrnoyoeajh9ep",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764712563/eooidikbrnoyoeajh9ep.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "g9hx1tserz8e87yto4ao",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764712564/g9hx1tserz8e87yto4ao.jpg"
+	},
+	"diagnosis": {
+		"result": "Xương bình thường",
+		"confidence": 0,
+		"details": "Không phát hiện dấu hiệu xương gãy",
+		"detections": [],
+		"totalDetections": 0
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-02T21:56:04.951Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69307dca2e9ebc97d84cd70e"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "afwxn7mlfb7r0ez27bcb",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764785608/afwxn7mlfb7r0ez27bcb.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "errkyoxywcnzqb5gygcp",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764785609/errkyoxywcnzqb5gygcp.jpg"
+	},
+	"diagnosis": {
+		"result": "Xương bình thường",
+		"confidence": 0,
+		"details": "Không phát hiện dấu hiệu xương gãy",
+		"detections": [],
+		"totalDetections": 0
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-03T18:13:30.203Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "69307ebfbaed3c808c8f270a"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "htasbrxe0rjscuppfisp",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764785853/htasbrxe0rjscuppfisp.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "gdk07ksiomrrkzpk3n8u",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764785854/gdk07ksiomrrkzpk3n8u.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 71.1,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 71.1,
+				"box": {
+					"x": 351,
+					"y": 279,
+					"x2": 559,
+					"y2": 464,
+					"width": 208,
+					"height": 185
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 54.4,
+				"box": {
+					"x": 15,
+					"y": 167,
+					"x2": 234,
+					"y2": 445,
+					"width": 219,
+					"height": 278
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-03T18:17:35.475Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931d80140a3f9ebfbd085d6"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "sm5stybuvhdcttlvio9q",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874239/sm5stybuvhdcttlvio9q.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "pahunnwhl36lmsvocuaz",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874240/pahunnwhl36lmsvocuaz.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 51,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 51,
+				"box": {
+					"x": 242,
+					"y": 290,
+					"x2": 490,
+					"y2": 527,
+					"width": 248,
+					"height": 237
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T18:50:41.381Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931d80e40a3f9ebfbd085db"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "opqrpn2wskqyijgkno8g",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874253/opqrpn2wskqyijgkno8g.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "ynnryrbtq1niqly4jkls",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874254/ynnryrbtq1niqly4jkls.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 52,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 52,
+				"box": {
+					"x": 153,
+					"y": 296,
+					"x2": 338,
+					"y2": 584,
+					"width": 185,
+					"height": 288
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T18:50:54.745Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931d81940a3f9ebfbd085e0"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "ep0mjyfwnidj9c6wstor",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874263/ep0mjyfwnidj9c6wstor.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "pouihfsuvpmyaarqzmqv",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874264/pouihfsuvpmyaarqzmqv.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 47.2,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 47.2,
+				"box": {
+					"x": 218,
+					"y": 220,
+					"x2": 397,
+					"y2": 430,
+					"width": 179,
+					"height": 210
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 26.2,
+				"box": {
+					"x": 475,
+					"y": 17,
+					"x2": 640,
+					"y2": 222,
+					"width": 165,
+					"height": 205
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T18:51:05.224Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931d82940a3f9ebfbd085e5"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "rufe8ylskel5gzm2sbc5",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874279/rufe8ylskel5gzm2sbc5.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "ujfwo4fwqbi0ps70jjp4",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764874280/ujfwo4fwqbi0ps70jjp4.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 65.8,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 65.8,
+				"box": {
+					"x": 345,
+					"y": 0,
+					"x2": 577,
+					"y2": 223,
+					"width": 232,
+					"height": 223
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T18:51:21.086Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931e86240a3f9ebfbd0862f"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "ompfmwgaorl4uusty5q3",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878433/ompfmwgaorl4uusty5q3.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "mvxedpxo3bsfal3zpd5e",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878433/mvxedpxo3bsfal3zpd5e.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 51,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 51,
+				"box": {
+					"x": 242,
+					"y": 290,
+					"x2": 490,
+					"y2": 527,
+					"width": 248,
+					"height": 237
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:00:34.226Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931e8fe40a3f9ebfbd08685"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "gtalwbbcetsprjtllf8t",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878588/gtalwbbcetsprjtllf8t.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "bulj7fr4v0gefshttrsc",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878589/bulj7fr4v0gefshttrsc.jpg"
+	},
+	"diagnosis": {
+		"result": "Xương bình thường",
+		"confidence": 0,
+		"details": "Không phát hiện dấu hiệu xương gãy",
+		"detections": [],
+		"totalDetections": 0
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:03:10.204Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931e90c40a3f9ebfbd0868a"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "r7jozq5n3lfsd9yiifmo",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878603/r7jozq5n3lfsd9yiifmo.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "u8y3icu0fbwyocld5fge",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878604/u8y3icu0fbwyocld5fge.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 75.9,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 75.9,
+				"box": {
+					"x": 322,
+					"y": 217,
+					"x2": 384,
+					"y2": 275,
+					"width": 62,
+					"height": 58
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:03:24.752Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931e92640a3f9ebfbd086b4"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "sqjt1hxnfxmnbpqenjll",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878628/sqjt1hxnfxmnbpqenjll.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "vdctfr05ayh7azks8gqv",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878629/vdctfr05ayh7azks8gqv.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 56.9,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 56.9,
+				"box": {
+					"x": 243,
+					"y": 273,
+					"x2": 377,
+					"y2": 388,
+					"width": 134,
+					"height": 115
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 16.9,
+				"box": {
+					"x": 308,
+					"y": 273,
+					"x2": 372,
+					"y2": 328,
+					"width": 64,
+					"height": 55
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:03:50.298Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931e96e40a3f9ebfbd086e5"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "kgsxx6sly4kii7maluja",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878701/kgsxx6sly4kii7maluja.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "yd4if7xqwdsuqvvxaclj",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764878702/yd4if7xqwdsuqvvxaclj.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 47.2,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 47.2,
+				"box": {
+					"x": 218,
+					"y": 220,
+					"x2": 397,
+					"y2": 430,
+					"width": 179,
+					"height": 210
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 26.2,
+				"box": {
+					"x": 475,
+					"y": 17,
+					"x2": 640,
+					"y2": 222,
+					"width": 165,
+					"height": 205
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:05:02.66Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931ebf43bc7a0bfbb84c403"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "w3lomfzl5csl7qbmsrxy",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879347/w3lomfzl5csl7qbmsrxy.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "no6qwqgtsjmymjlh223i",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879348/no6qwqgtsjmymjlh223i.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 47.2,
+		"details": "Phát hiện 2 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 47.2,
+				"box": {
+					"x": 218,
+					"y": 220,
+					"x2": 397,
+					"y2": 430,
+					"width": 179,
+					"height": 210
+				}
+			},
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 26.2,
+				"box": {
+					"x": 475,
+					"y": 17,
+					"x2": 640,
+					"y2": 222,
+					"width": 165,
+					"height": 205
+				}
+			}
+		],
+		"totalDetections": 2
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:15:48.996Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931ec3f3bc7a0bfbb84c459"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "xns0qmeszqgafp7kigfo",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879422/xns0qmeszqgafp7kigfo.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "hpqazn776phw430hoz6u",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879423/hpqazn776phw430hoz6u.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 57.2,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 57.2,
+				"box": {
+					"x": 111,
+					"y": 210,
+					"x2": 242,
+					"y2": 351,
+					"width": 131,
+					"height": 141
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:17:03.601Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931ece93bc7a0bfbb84c483"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "lvpsjlxuor1tiytykr64",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879592/lvpsjlxuor1tiytykr64.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "yk7gcwxbotkyjfqkjgvx",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879593/yk7gcwxbotkyjfqkjgvx.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 57.2,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 57.2,
+				"box": {
+					"x": 111,
+					"y": 210,
+					"x2": 242,
+					"y2": 351,
+					"width": 131,
+					"height": 141
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:19:53.578Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931ed9b3578180974051a6e"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "y6zilezu8ch8foncln7l",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879770/y6zilezu8ch8foncln7l.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "dpwkqqj31u2bzjyln43f",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879770/dpwkqqj31u2bzjyln43f.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 57.2,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 57.2,
+				"box": {
+					"x": 111,
+					"y": 210,
+					"x2": 242,
+					"y2": 351,
+					"width": 131,
+					"height": 141
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:22:51.21Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931ee28d38109b92fd6e5ba"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "vte9w7yoq56bnmwvamcm",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879911/vte9w7yoq56bnmwvamcm.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "sopagwzxtvwzkugrtdzz",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764879912/sopagwzxtvwzkugrtdzz.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 54.8,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 54.8,
+				"box": {
+					"x": 60,
+					"y": 311,
+					"x2": 249,
+					"y2": 504,
+					"width": 189,
+					"height": 193
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:25:12.755Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f02b5fdfd3faf4aaca00"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "y0oq7untzhd4kjptmbdy",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880426/y0oq7untzhd4kjptmbdy.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "mgrrkjdt21hxz0b5ld9c",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880427/mgrrkjdt21hxz0b5ld9c.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 54.8,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 54.8,
+				"box": {
+					"x": 60,
+					"y": 311,
+					"x2": 249,
+					"y2": 504,
+					"width": 189,
+					"height": 193
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:33:47.43Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f0365fdfd3faf4aaca05"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "prmud4dpofsoarhwo5xc",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880437/prmud4dpofsoarhwo5xc.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "emufhz3tasfjz9e1ztrk",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880438/emufhz3tasfjz9e1ztrk.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 54.8,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 54.8,
+				"box": {
+					"x": 60,
+					"y": 311,
+					"x2": 249,
+					"y2": 504,
+					"width": 189,
+					"height": 193
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:33:58.648Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f0555fdfd3faf4aaca28"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "tcxihzkpgv7988alnof4",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880468/tcxihzkpgv7988alnof4.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "d6czjd1zqawtgoxuzro3",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880469/d6czjd1zqawtgoxuzro3.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 54.8,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 54.8,
+				"box": {
+					"x": 60,
+					"y": 311,
+					"x2": 249,
+					"y2": 504,
+					"width": 189,
+					"height": 193
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:34:29.43Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f06c5fdfd3faf4aaca3d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "xmibvyimnltj581cklun",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880490/xmibvyimnltj581cklun.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "cdsbko8wyuzxsfmkedvw",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764880491/cdsbko8wyuzxsfmkedvw.jpg"
+	},
+	"diagnosis": {
+		"result": "Phát hiện vùng gãy",
+		"confidence": 51,
+		"details": "Phát hiện 1 vùng bất thường",
+		"detections": [
+			{
+				"class": "Phát hiện vùng gãy",
+				"confidence": 51,
+				"box": {
+					"x": 242,
+					"y": 290,
+					"x2": 490,
+					"y2": 527,
+					"width": 248,
+					"height": 237
+				}
+			}
+		],
+		"totalDetections": 1
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:34:52.342Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f2cd56118d885b53392c"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jnavlinbmoxd90s4ffsp",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881100/jnavlinbmoxd90s4ffsp.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "gah14nrjebcs9zafqrna",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881101/gah14nrjebcs9zafqrna.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 51,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 51,
+					"box": {
+						"x": 242,
+						"y": 290,
+						"x2": 490,
+						"y2": 527,
+						"width": 248,
+						"height": 237
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:45:01.892Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f2dc56118d885b533941"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "whzgjtzmup96yzfch7rb",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881113/whzgjtzmup96yzfch7rb.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "zny1d2kn4efo2vhcuk6g",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881115/zny1d2kn4efo2vhcuk6g.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:45:16.617Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f4a056118d885b533966"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "fsauiojqmxix18afir7m",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881567/fsauiojqmxix18afir7m.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "zsu2hzyrnwve5jojrnex",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881568/zsu2hzyrnwve5jojrnex.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:52:48.988Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f61356118d885b53397b"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "vkgf4de7dm137qrwtvem",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881937/vkgf4de7dm137qrwtvem.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "ggkodheni16oar8z8gu2",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881938/ggkodheni16oar8z8gu2.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:58:59.003Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f63956118d885b5339a0"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "w4pb30xld3ynwgprtfca",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881975/w4pb30xld3ynwgprtfca.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "jvsvyuquoxm3yp5ovxjq",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764881976/jvsvyuquoxm3yp5ovxjq.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T20:59:37.749Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f6d056118d885b5339b5"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "zbgvkwvyievmajgmkdhs",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882126/zbgvkwvyievmajgmkdhs.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "gzzkzicnhirbqciobbpa",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882127/gzzkzicnhirbqciobbpa.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:02:08.218Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f6e256118d885b5339ca"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jm6ugowd0clnhf6kyd2t",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882145/jm6ugowd0clnhf6kyd2t.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "knjf1xaoy3buizk4lbht",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882146/knjf1xaoy3buizk4lbht.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:02:26.986Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f71a56118d885b5339ef"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "b43wl18zppeevcaw8zkb",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882201/b43wl18zppeevcaw8zkb.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "lyavf5nb5e7ews15menq",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882202/lyavf5nb5e7ews15menq.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:03:22.7Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f81c56118d885b533a0b"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "hekyo95nuvocdmmdvs7n",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882459/hekyo95nuvocdmmdvs7n.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "kzzftuxydk9k1rqnp6f3",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882460/kzzftuxydk9k1rqnp6f3.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:07:40.665Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f83a56118d885b533a2c"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "oqlcyizrykg3tdkn24yu",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882488/oqlcyizrykg3tdkn24yu.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "z2hkono1hlgzcuwdx2l3",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882489/z2hkono1hlgzcuwdx2l3.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:08:10.257Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f89b56118d885b533a41"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "nbm2iijrbmtik3fdeppk",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882586/nbm2iijrbmtik3fdeppk.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "kiijsiozustnechcujb8",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882587/kiijsiozustnechcujb8.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:09:47.856Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f8c256118d885b533a5a"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "f385vsixjkwpqkbollzr",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882625/f385vsixjkwpqkbollzr.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "fftfxrdagzjnwc5mfzsv",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882626/fftfxrdagzjnwc5mfzsv.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:10:26.302Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f8de56118d885b533a6f"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jbqqgjqq0bg4aidptbjn",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882653/jbqqgjqq0bg4aidptbjn.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "lvbokefi2yk08sf46bcn",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882653/lvbokefi2yk08sf46bcn.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 51,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 51,
+					"box": {
+						"x": 242,
+						"y": 290,
+						"x2": 490,
+						"y2": 527,
+						"width": 248,
+						"height": 237
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:10:54.278Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f94956118d885b533a84"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "bzslovlfppqbymdt3qlm",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882760/bzslovlfppqbymdt3qlm.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "jswtu6thwig7bcp08amh",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882761/jswtu6thwig7bcp08amh.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:12:41.489Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f96356118d885b533a9b"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "jvxmzr5ld6k4yqw0idmu",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882785/jvxmzr5ld6k4yqw0idmu.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "dhbysqxak30pa3tvkyxw",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882786/dhbysqxak30pa3tvkyxw.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:13:07.436Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f97256118d885b533aa0"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "kjrcitlvhn8zaxkfi395",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882800/kjrcitlvhn8zaxkfi395.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "uanlgqykaxomcoburt5c",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882801/uanlgqykaxomcoburt5c.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:13:22.35Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931f9e7fb56276b2137ce52"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "dbscxamktefnfy1afgdc",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882918/dbscxamktefnfy1afgdc.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "mlgma9qmjismkzy36j9x",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764882919/mlgma9qmjismkzy36j9x.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:15:19.524Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931face92488d19249ea145"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "wmztfdrlbihedglkivcs",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883148/wmztfdrlbihedglkivcs.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "wy6gqql0xrevqo54a9h5",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883149/wy6gqql0xrevqo54a9h5.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 54.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 54.8,
+					"box": {
+						"x": 60,
+						"y": 311,
+						"x2": 249,
+						"y2": 504,
+						"width": 189,
+						"height": 193
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:19:10.196Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931fb1c92488d19249ea181"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "uc5xgr7m0u7u3nu6sscu",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883227/uc5xgr7m0u7u3nu6sscu.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "j8mypzr2wwssquqclaxw",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883228/j8mypzr2wwssquqclaxw.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 57.2,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 57.2,
+					"box": {
+						"x": 111,
+						"y": 210,
+						"x2": 242,
+						"y2": 351,
+						"width": 131,
+						"height": 141
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:20:28.678Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6931fe08091d6c63ae6eba0d"
+	},
+	"patientId": {
+		"$oid": "692350e0e3a4a1141589d23a"
+	},
+	"patientName": "",
+	"patientEmail": "",
+	"xrayImage": {
+		"public_id": "hq4uzmedgn76s2i3cdaj",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883975/hq4uzmedgn76s2i3cdaj.jpg"
+	},
+	"annotatedImage": {
+		"public_id": "xotkhvc6eekjq9kw7typ",
+		"url": "https://res.cloudinary.com/doykrcah5/image/upload/v1764883976/xotkhvc6eekjq9kw7typ.jpg"
+	},
+	"diagnosis": {
+		"result": {
+			"fractureDetected": true,
+			"confidence": 65.8,
+			"details": "Phát hiện 1 vùng bất thường",
+			"detections": [
+				{
+					"class": "Phát hiện vùng gãy",
+					"confidence": 65.8,
+					"box": {
+						"x": 345,
+						"y": 0,
+						"x2": 577,
+						"y2": 223,
+						"width": 232,
+						"height": 223
+					}
+				}
+			],
+			"totalDetections": 1
+		}
+	},
+	"doctorNote": "",
+	"status": "pending",
+	"createdAt": {
+		"$date": "2025-12-04T21:32:56.914Z"
+	},
+	"__v": 0
+}
