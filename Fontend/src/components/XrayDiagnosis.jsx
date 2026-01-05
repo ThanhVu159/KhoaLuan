@@ -8,20 +8,22 @@ const XrayDiagnosis = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [appointmentId, setAppointmentId] = useState(null);
+  const [appointments, setAppointments] = useState([]);
   const [showAnnotations, setShowAnnotations] = useState(true);
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const imageRef = useRef(null);
   const canvasRef = useRef(null);
 
-
   useEffect(() => {
-    const fetchAppointment = async () => {
+    const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/appointment/getall",
+          "http://localhost:4000/api/v1/user/appointment/getall",
           { withCredentials: true, headers: { "Cache-Control": "no-cache" } }
         );
+
+        console.log("Raw response:", data);
 
         const myAppointments = (data.appointments || [])
           .filter((item) =>
@@ -32,22 +34,42 @@ const XrayDiagnosis = () => {
               new Date(b.appointment_date) - new Date(a.appointment_date)
           );
 
-        console.log("Lịch hẹn tìm thấy:", myAppointments);
+        console.log("Lịch hẹn sau khi filter và sort (mới nhất đầu tiên):", myAppointments);
+        setAppointments(myAppointments);
 
         if (myAppointments.length > 0) {
-          setAppointmentId(myAppointments[0]._id);
+          const newestAppointment = myAppointments[0];
+          setAppointmentId(newestAppointment._id);
+          console.log("Tự động chọn lịch hẹn MỚI NHẤT:");
+          console.log("   - ID:", newestAppointment._id);
+          console.log("   - Ngày:", newestAppointment.appointment_date);
+          console.log("   - Status:", newestAppointment.status);
         } else {
           setAppointmentId(null);
+          console.warn("Không có lịch hẹn phù hợp");
         }
       } catch (error) {
         console.error("Fetch appointment error:", error);
+        console.error("Error response:", error.response?.data);
       }
     };
 
-    fetchAppointment();
+    fetchAppointments();
+    
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        console.log("Trang được hiển thị lại, refetch appointments...");
+        fetchAppointments();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
-  // Vẽ khoanh vùng lên canvas
   useEffect(() => {
     if (!result?.detections || !canvasRef.current || !imageRef.current || !showAnnotations) return;
 
@@ -74,12 +96,12 @@ const XrayDiagnosis = () => {
         const w = det.box.width ?? (det.box.x2 ? det.box.x2 - x : 0);
         const h = det.box.height ?? (det.box.y2 ? det.box.y2 - y : 0);
 
-        ctx.strokeStyle = "#FF0000";
+        ctx.strokeStyle = "#e12a11ff";
         ctx.lineWidth = 4;
         ctx.strokeRect(x, y, w, h);
 
         ctx.font = "20px Arial";
-        ctx.fillStyle = "#FF0000";
+        ctx.fillStyle = "#e12a11ff";
         ctx.fillText(`Vùng ${idx + 1}`, x + 5, y > 20 ? y - 5 : y + 20);
       });
     }
@@ -115,6 +137,9 @@ const XrayDiagnosis = () => {
 
     if (appointmentId) {
       formData.append("appointmentId", appointmentId);
+      console.log("Sending appointmentId to backend:", appointmentId);
+    } else {
+      console.warn("No appointmentId available");
     }
 
     try {
@@ -127,6 +152,9 @@ const XrayDiagnosis = () => {
         }
       );
 
+      console.log("Response from backend:", data);
+      console.log("appointmentUpdated:", data.appointmentUpdated);
+
       const diagnosisResult = {
         ...data.data,
         annotatedImageUrl: data.data.annotatedImage || data.data.imageUrl || preview,
@@ -134,14 +162,40 @@ const XrayDiagnosis = () => {
 
       setResult(diagnosisResult);
 
-      // Hiển thị thông báo thành công nếu có appointmentId
       if (appointmentId && data.appointmentUpdated) {
         setUpdateSuccess(true);
         setTimeout(() => setUpdateSuccess(false), 5000);
-        console.log("✅ Backend đã tự động cập nhật kết quả vào hồ sơ");
+        console.log("Backend đã tự động cập nhật kết quả vào hồ sơ");
+
+        try {
+          const profileRes = await axios.get(
+            "http://localhost:4000/api/v1/user/profile",
+            { withCredentials: true }
+          );
+          console.log("Hồ sơ sau khi cập nhật:", profileRes.data.user);
+          
+          const updatedAppointment = profileRes.data.user.appointments?.find(
+            apt => apt._id === appointmentId
+          );
+          if (updatedAppointment) {
+            console.log("Appointment đã có result:", updatedAppointment.result);
+          } else {
+            console.warn("Không tìm thấy appointment trong profile");
+          }
+        } catch (err) {
+          console.error("Lỗi khi refresh hồ sơ:", err);
+        }
+      } else {
+        if (!appointmentId) {
+          console.warn("Không có appointmentId để cập nhật");
+        }
+        if (!data.appointmentUpdated) {
+          console.warn("Backend báo appointment không được cập nhật");
+        }
       }
     } catch (error) {
       console.error("Submit error:", error);
+      console.error("Error response:", error.response?.data);
       const errorMsg = error.response?.data?.message || "Có lỗi xảy ra khi phân tích!";
       alert(errorMsg);
     } finally {
@@ -171,32 +225,22 @@ const XrayDiagnosis = () => {
     }
   };
 
-  // Helper function để kiểm tra kết quả có dấu hiệu gãy xương
   const hasFractureIndication = () => {
     if (!result) return false;
-    
-    // Kiểm tra nếu result.result là object (có fractureDetected)
     if (typeof result.result === 'object' && result.result !== null) {
       return result.result.fractureDetected || result.totalDetections > 0;
     }
-    
-    // Nếu là string
     const resultText = String(result.result || "").toLowerCase();
     return resultText.includes("gãy") || resultText.includes("phát hiện") || result.totalDetections > 0;
   };
 
-  // Helper function để lấy text hiển thị kết quả
   const getResultText = () => {
     if (!result || !result.result) return "Không xác định";
-    
-    // Nếu result.result là object
     if (typeof result.result === 'object' && result.result !== null) {
       return result.result.fractureDetected 
         ? "Phát hiện dấu hiệu gãy xương" 
         : "Không phát hiện dấu hiệu gãy xương";
     }
-    
-    // Nếu là string
     return result.result;
   };
 
@@ -206,12 +250,78 @@ const XrayDiagnosis = () => {
         <div className="xray-header">
           <h1>Chẩn Đoán Hình Ảnh X-Quang</h1>
           <p>Công nghệ AI tiên tiến phát hiện xương gãy nhanh chóng và chính xác</p>
+          
+          {appointments.length === 0 && (
+            <div style={{
+              background: "#fff3cd",
+              padding: "12px 16px",
+              borderRadius: "8px",
+              marginTop: "16px",
+              color: "#856404"
+            }}>
+              Bạn chưa có lịch hẹn nào. Vui lòng đặt lịch trước khi chuẩn đoán.
+            </div>
+          )}
         </div>
 
         <div className="xray-grid">
-          {/* Upload Section */}
           <div className="upload-section">
-            <h2>📤 Upload Ảnh X-Quang</h2>
+            <h2>Upload Ảnh X-Quang</h2>
+            
+            {/* Dropdown chọn lịch hẹn */}
+            {appointments.length > 0 && (
+              <div style={{ marginBottom: "20px" }}>
+                <label style={{ 
+                  display: "block", 
+                  marginBottom: "8px", 
+                  fontWeight: "600",
+                  fontSize: "14px"
+                }}>
+                  Chọn lịch hẹn để lưu kết quả:
+                </label>
+                <select
+                  value={appointmentId || ""}
+                  onChange={(e) => {
+                    setAppointmentId(e.target.value);
+                    console.log("Đã chọn appointment:", e.target.value);
+                  }}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    fontSize: "14px",
+                    border: "2px solid #e2e8f0",
+                    borderRadius: "8px",
+                    background: "white",
+                    cursor: "pointer"
+                  }}
+                >
+                  {appointments.map((apt) => {
+                    const doctorName = apt.doctorId 
+                      ? `${apt.doctorId.lastName || ''} ${apt.doctorId.firstName || ''}`.trim()
+                      : (apt.doctor 
+                        ? `${apt.doctor.lastName || ''} ${apt.doctor.firstName || ''}`.trim()
+                        : "N/A");
+                    
+                    const date = new Date(apt.appointment_date).toLocaleString('vi-VN');
+                    
+                    return (
+                      <option key={apt._id} value={apt._id}>
+                        {date} - BS: {doctorName} - {apt.department}
+                      </option>
+                    );
+                  })}
+                </select>
+                <small style={{ 
+                  display: "block", 
+                  marginTop: "6px", 
+                  color: "#666",
+                  fontSize: "12px"
+                }}>
+                  Kết quả AI sẽ được lưu vào lịch hẹn này
+                </small>
+              </div>
+            )}
+            
             <div>
               <div className={`upload-box ${preview ? "has-image" : ""}`}>
                 <input
@@ -241,25 +351,23 @@ const XrayDiagnosis = () => {
 
               <div className="button-group">
                 <button onClick={handleSubmit} disabled={!image || loading} className="btn btn-primary">
-                  {loading ? "Đang phân tích..." : "🔍 Phân tích ngay"}
+                  {loading ? "Đang phân tích..." : "Phân tích ngay"}
                 </button>
                 {(image || result) && (
                   <button onClick={handleReset} disabled={loading} className="btn btn-secondary">
-                    🔄 Làm mới
+                    Làm mới
                   </button>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Results Section */}
           <div className={`results-section ${!result ? "empty" : ""}`}>
             {result ? (
               <>
                 <div style={{ marginBottom: "20px" }}>
-                  <h2>📊 Kết quả phân tích</h2>
+                  <h2>Kết quả phân tích</h2>
                   
-                  {/* Thông báo cập nhật thành công */}
                   {updateSuccess && (
                     <div style={{
                       background: "#d4edda",
@@ -272,7 +380,6 @@ const XrayDiagnosis = () => {
                       alignItems: "center",
                       gap: "8px"
                     }}>
-                      <span style={{ fontSize: "20px" }}>✅</span>
                       <span>Đã cập nhật kết quả vào hồ sơ bệnh án thành công!</span>
                     </div>
                   )}
@@ -302,9 +409,8 @@ const XrayDiagnosis = () => {
                   )}
                 </div>
 
-                {/* Kết quả chi tiết */}
                 <div className="result-card">
-                  <h2>📋 Kết Quả Chẩn Đoán</h2>
+                  <h2>Kết Quả Chẩn Đoán</h2>
 
                   <div className="result-item">
                     <span className="result-label">Kết quả:</span>
@@ -331,7 +437,7 @@ const XrayDiagnosis = () => {
 
                   {hasFractureIndication() && (
                     <div className="doctor-warning">
-                      <div className="doctor-warning-icon">⚠️</div>
+                      <div className="doctor-warning-icon"></div>
                       <div className="doctor-warning-text">
                         <strong>Nghi ngờ có dấu hiệu gãy xương!</strong>
                         <p>
@@ -348,7 +454,7 @@ const XrayDiagnosis = () => {
 
                   {result.detections && result.detections.length > 0 && (
                     <div className="detections-list">
-                      <h3>🔍 Chi tiết các vùng phát hiện:</h3>
+                      <h3>Chi tiết các vùng phát hiện:</h3>
                       {result.detections.map((det, idx) => (
                         <div key={idx} className="detection-item">
                           <div style={{ flex: 1 }}>
@@ -383,27 +489,22 @@ const XrayDiagnosis = () => {
               </>
             ) : (
               <div className="empty-state">
-                <div className="empty-state-icon">📋</div>
                 <p>Kết quả sẽ hiển thị ở đây</p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Features Section */}
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon">🎯</div>
             <h3>Chính Xác Cao</h3>
             <p>Sử dụng mô hình AI được huấn luyện trên hàng nghìn ảnh X-quang</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">⚡</div>
             <h3>Nhanh Chóng</h3>
             <p>Kết quả chẩn đoán trong vài giây, tiết kiệm thời gian chờ đợi</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">🔒</div>
             <h3>Bảo Mật</h3>
             <p>Dữ liệu của bạn được mã hóa và bảo mật tuyệt đối</p>
           </div>

@@ -13,7 +13,7 @@ const AppointmentForm = () => {
   const [department, setDepartment] = useState("Nhi khoa");
   const [doctorFirstName, setDoctorFirstName] = useState("");
   const [doctorLastName, setDoctorLastName] = useState("");
-  const [doctorId, setDoctorId] = useState(""); // ✅ thêm doctorId
+  const [doctorId, setDoctorId] = useState("");
   const [address, setAddress] = useState("");
   const [hasVisited, setHasVisited] = useState(false);
 
@@ -43,7 +43,6 @@ const AppointmentForm = () => {
 
   const [doctors, setDoctors] = useState([]);
 
-  // ✅ gọi đúng endpoint /api/v1/doctor
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -61,7 +60,6 @@ const AppointmentForm = () => {
     fetchDoctors();
   }, []);
 
-  // ✅ gọi đúng endpoint /api/v1/appointment/new
   const handleAppointment = async (e) => {
     e.preventDefault();
     try {
@@ -78,7 +76,7 @@ const AppointmentForm = () => {
           department: departmentMap[department],
           doctor_firstName: doctorFirstName,
           doctor_lastName: doctorLastName,
-          doctorId, // ✅ gửi lên backend
+          doctorId,
           hasVisited,
           address,
         },
@@ -124,14 +122,14 @@ const AppointmentForm = () => {
           <input
             type="text"
             placeholder="Họ"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
           <input
             type="text"
             placeholder="Tên"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
 
@@ -204,7 +202,7 @@ const AppointmentForm = () => {
                 const { firstName, lastName, id } = JSON.parse(e.target.value);
                 setDoctorFirstName(firstName);
                 setDoctorLastName(lastName);
-                setDoctorId(id); // ✅ gán ID bác sĩ
+                setDoctorId(id);
               } else {
                 setDoctorFirstName("");
                 setDoctorLastName("");
@@ -220,10 +218,10 @@ const AppointmentForm = () => {
                 value={JSON.stringify({
                   firstName: doctor.firstName,
                   lastName: doctor.lastName,
-                  id: doctor._id, // ✅ truyền ID bác sĩ
+                  id: doctor._id,
                 })}
               >
-                {doctor.firstName} {doctor.lastName}
+                {doctor.lastName} {doctor.firstName}
               </option>
             ))}
           </select>

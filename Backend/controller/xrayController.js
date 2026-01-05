@@ -75,25 +75,22 @@ const normalizeDetections = (detections = []) =>
   });
 
 const updateAppointment = async (id, prediction, detections, annotatedImage, fallbackUrl) => {
-  if (!id) return false;
+  if (!id) {
+    console.warn("⚠️ updateAppointment called with no ID");
+    return false;
+  }
 
   try {
+    console.log("🔄 Attempting to update appointment:", id);
+    
     const fracture =
       (detections && detections.length > 0) ||
       (/fracture/i.test(prediction.result || "")) ||
       (/gãy/i.test(prediction.result || ""));
 
-    // Tạo region từ detections
     const region = detections && detections.length > 0
       ? detections.map(d => d.class).join(", ")
       : prediction.details || "Chưa xác định";
-
-    console.log("=== DEBUG updateAppointment ===");
-    console.log("Appointment ID:", id);
-    console.log("Prediction.result:", prediction.result);
-    console.log("Detections:", detections);
-    console.log("FractureDetected set to:", fracture);
-    console.log("Region:", region);
 
     const updateData = {
       result: {
@@ -106,16 +103,31 @@ const updateAppointment = async (id, prediction, detections, annotatedImage, fal
         analyzedAt: new Date(),
         imageUrl: annotatedImage || fallbackUrl,
       },
+      hasResult: true,
     };
 
-    console.log("Update data:", JSON.stringify(updateData, null, 2));
+    console.log("📝 Update data:", JSON.stringify(updateData, null, 2));
 
-    await Appointment.findByIdAndUpdate(id, { $set: updateData });
-    
+    const updated = await Appointment.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true }
+    );
+
+    if (!updated) {
+      console.error("❌ Appointment not found:", id);
+      return false;
+    }
+
     console.log("✅ Appointment updated successfully!");
+    console.log("   - ID:", updated._id);
+    console.log("   - hasResult:", updated.hasResult);
+    console.log("   - result:", updated.result);
+
     return true;
   } catch (error) {
     console.error("❌ Error updating appointment:", error);
+    console.error("   Error details:", error.message);
     return false;
   }
 };
@@ -123,6 +135,16 @@ const updateAppointment = async (id, prediction, detections, annotatedImage, fal
 export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
   const appointmentId = req.body?.appointmentId || null;
   const patientId = req.userId;
+  
+  // ✅ Log đầu vào
+  console.log("\n" + "=".repeat(60));
+  console.log("📋 RECEIVED DIAGNOSIS REQUEST");
+  console.log("=".repeat(60));
+  console.log("  - appointmentId:", appointmentId);
+  console.log("  - patientId:", patientId);
+  console.log("  - req.body keys:", Object.keys(req.body));
+  console.log("  - req.files:", req.files ? Object.keys(req.files) : "none");
+  console.log("=".repeat(60) + "\n");
   
   if (!patientId) {
     return next(new ErrorHandler("Thiếu thông tin đăng nhập!", 400));
@@ -141,26 +163,31 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
 
     let prediction;
     try {
+      console.log("🤖 Calling AI service...");
       const aiRes = await axios.post(AI_SERVICE_URL, formData, {
         headers: formData.getHeaders(),
         timeout: 120000,
       });
       prediction = aiRes.data;
-      console.log("AI Service Response:", prediction);
+      console.log("✅ AI Service Response received");
+      console.log("   Prediction:", JSON.stringify(prediction, null, 2));
     } catch (err) {
-      console.error("AI Service Error:", err.message);
+      console.error("❌ AI Service Error:", err.message);
       throw new ErrorHandler("Không thể kết nối AI service!", 500);
     }
 
+    console.log("☁️ Uploading to Cloudinary...");
     const uploaded = await cloudinary.uploader.upload(xrayFile.tempFilePath, {
       folder: "xray_diagnoses",
     });
+    console.log("✅ Original image uploaded:", uploaded.secure_url);
 
     let annotatedUrl = null;
     let annotatedPublicId = null;
 
     if (prediction.annotated_image && prediction.annotated_image.startsWith("data:image")) {
       try {
+        console.log("📸 Processing annotated image...");
         const base64Data = prediction.annotated_image.split(",")[1];
         const tmp = path.join(uploadsDir, `tmp_ann_${Date.now()}.png`);
         fs.writeFileSync(tmp, Buffer.from(base64Data, "base64"));
@@ -171,20 +198,23 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
 
         annotatedUrl = annUp.secure_url;
         annotatedPublicId = annUp.public_id;
+        console.log("✅ Annotated image uploaded:", annotatedUrl);
 
         if (fs.existsSync(tmp)) fs.unlinkSync(tmp);
       } catch (err) {
-        console.error("Annotated image invalid:", err.message);
+        console.error("❌ Annotated image error:", err.message);
       }
     }
 
     const detections = normalizeDetections(prediction.detections);
+    console.log("🔍 Detections normalized:", detections.length, "items");
 
     const fracture =
       (detections && detections.length > 0) ||
       (/fracture/i.test(prediction.result || "")) ||
       (/gãy/i.test(prediction.result || ""));
 
+    console.log("💾 Creating diagnosis record...");
     const diagnosis = await Diagnosis.create({
       patientId,
       xrayImage: { public_id: uploaded.public_id, url: uploaded.secure_url },
@@ -201,12 +231,14 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
       doctorNote: "",
       status: "pending",
     });
+    console.log("✅ Diagnosis created:", diagnosis._id);
 
-    // Cập nhật appointment nếu có
     let appointmentUpdated = false;
     if (appointmentId) {
+      console.log("🔄 Checking appointment:", appointmentId);
       const appointment = await Appointment.findById(appointmentId);
       if (appointment) {
+        console.log("✅ Appointment found, updating...");
         appointmentUpdated = await updateAppointment(
           appointmentId,
           prediction,
@@ -214,24 +246,32 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
           annotatedUrl,
           uploaded.secure_url
         );
-        console.log("Appointment update status:", appointmentUpdated);
+        console.log("📊 Appointment update result:", appointmentUpdated);
       } else {
         console.warn("⚠️ Appointment not found:", appointmentId);
       }
+    } else {
+      console.warn("⚠️ No appointmentId provided");
     }
 
     if (fs.existsSync(xrayFile.tempFilePath)) fs.unlinkSync(xrayFile.tempFilePath);
 
-    // Trả về response với đầy đủ thông tin
+    console.log("\n" + "=".repeat(60));
+    console.log("✅ DIAGNOSIS COMPLETED");
+    console.log("=".repeat(60));
+    console.log("  - Diagnosis ID:", diagnosis._id);
+    console.log("  - Appointment Updated:", appointmentUpdated);
+    console.log("=".repeat(60) + "\n");
+
     res.status(200).json({
       success: true,
       message: "Phân tích X-ray thành công!",
-      appointmentUpdated, // ✅ Thêm flag này
+      appointmentUpdated,
       data: {
         diagnosisId: diagnosis._id,
         imageUrl: uploaded.secure_url,
         annotatedImage: annotatedUrl || uploaded.secure_url,
-        result: diagnosis.diagnosis.result, // ✅ Trả về cấu trúc đầy đủ
+        result: diagnosis.diagnosis.result,
         confidence: diagnosis.diagnosis.result.confidence,
         details: diagnosis.diagnosis.result.details,
         detections: diagnosis.diagnosis.result.detections,
@@ -243,6 +283,7 @@ export const diagnoseXray = catchAsyncErrors(async (req, res, next) => {
     if (xrayFile?.tempFilePath && fs.existsSync(xrayFile.tempFilePath))
       fs.unlinkSync(xrayFile.tempFilePath);
 
+    console.error("❌ DIAGNOSIS FAILED:", err.message);
     return next(new ErrorHandler(`Lỗi khi phân tích ảnh: ${err.message}`, 500));
   }
 });
@@ -256,6 +297,12 @@ export const getDiagnosisHistory = catchAsyncErrors(async (req, res) => {
 
 export const getDiagnosisById = catchAsyncErrors(async (req, res, next) => {
   const item = await Diagnosis.findById(req.params.id);
-  if (!item) return next(new ErrorHandler("Không tìm thấy kết quả chẩn đoán!", 404));
-  res.json({ success: true, diagnosis: item });
+  if (!item) {
+    return next(new ErrorHandler("Không tìm thấy kết quả chẩn đoán!", 404));
+  }
+
+  res.json({
+    success: true,
+    diagnosis: item,
+  });
 });

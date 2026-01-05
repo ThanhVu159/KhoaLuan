@@ -29,7 +29,7 @@ const Sidebar = () => {
       localStorage.removeItem("role");
 
       setIsAuthenticated(false);
-      setAdmin(null); // ✅ reset admin về null
+      setAdmin(null); // reset admin về null
 
       navigateTo("/login");
     } catch (err) {
@@ -46,7 +46,7 @@ const Sidebar = () => {
         <div className="links">
           <TiHome onClick={() => navigateTo("/")} />
           <FaUserDoctor onClick={() => navigateTo("/doctors")} />
-          {/* ✅ chỉ hiển thị cho Admin */}
+          {/*  chỉ hiển thị cho Admin */}
           {admin?.role === "Admin" && (
             <>
               <MdAddModerator onClick={() => navigateTo("/admin/addnew")} />

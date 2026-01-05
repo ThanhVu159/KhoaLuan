@@ -19,30 +19,62 @@ const Register = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    
+    // Validation
+    if (!lastName.trim()) {
+      toast.error("Vui lòng nhập họ!");
+      return;
+    }
+    if (!firstName.trim()) {
+      toast.error("Vui lòng nhập tên!");
+      return;
+    }
+    if (!email.trim()) {
+      toast.error("Vui lòng nhập email!");
+      return;
+    }
+    if (!phone.trim()) {
+      toast.error("Vui lòng nhập số điện thoại!");
+      return;
+    }
+    if (!dob) {
+      toast.error("Vui lòng chọn ngày sinh!");
+      return;
+    }
+    if (!gender) {
+      toast.error("Vui lòng chọn giới tính!");
+      return;
+    }
+    if (!password || password.length < 8) {
+      toast.error("Mật khẩu phải có ít nhất 8 ký tự!");
+      return;
+    }
+
     try {
-      await axios
-        .post(
-          "http://localhost:4000/api/v1/user/patient/register",
-          { firstName, lastName, email, phone, dob, gender, password },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setDob("");
-          setGender("");
-          setPassword("");
-        });
+      const { data } = await axios.post(
+        "http://localhost:4000/api/v1/user/register",
+        { firstName, lastName, email, phone, dob, gender, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      toast.success(data.message || "Đăng ký thành công!");
+      setIsAuthenticated(true);
+      navigateTo("/");
+      
+      // Reset form
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setDob("");
+      setGender("");
+      setPassword("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      const errorMessage = error.response?.data?.message || "Đăng ký thất bại!";
+      toast.error(errorMessage);
     }
   };
 
@@ -59,15 +91,17 @@ const Register = () => {
           <div>
             <input
               type="text"
-              placeholder="Họ"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Họ và tên đệm"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
             <input
               type="text"
               placeholder="Tên"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -76,12 +110,16 @@ const Register = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <input
-              type="number"
+              type="tel"
               placeholder="Số điện thoại"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              pattern="[0-9]{10,11}"
+              title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)"
+              required
             />
           </div>
           <div>
@@ -90,20 +128,26 @@ const Register = () => {
               placeholder="Ngày sinh"
               value={dob}
               onChange={(e) => setDob(e.target.value)}
+              required
             />
-            <select value={gender} onChange={(e) => setGender(e.target.value)}>
-            <option value="">Chọn giới tính</option>
-            <option value="Nam">Nam</option>
-            <option value="Nữ">Nữ</option>
-             </select>
-
+            <select 
+              value={gender} 
+              onChange={(e) => setGender(e.target.value)}
+              required
+            >
+              <option value="">Chọn giới tính</option>
+              <option value="Male">Nam</option>
+              <option value="Female">Nữ</option>
+            </select>
           </div>
           <div>
             <input
               type="password"
-              placeholder="Mật khẩu"
+              placeholder="Mật khẩu (tối thiểu 8 ký tự)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              minLength={8}
+              required
             />
           </div>
           <div

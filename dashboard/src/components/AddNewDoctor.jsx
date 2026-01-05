@@ -29,8 +29,7 @@ const AddNewDoctor = () => {
     { value: "Physical Therapy", label: "Vật lý trị liệu" },
     { value: "Dermatology", label: "Da liễu" },
     { value: "ENT", label: "Tai - Mũi - Họng" },
-    { value: "Ophthalmology", label: "Mắt" },
-    { value: "Gynecology", label: "Phụ sản" },
+
   ];
 
   const handleAvatar = (e) => {
